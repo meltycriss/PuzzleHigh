@@ -4,26 +4,27 @@ package com.example.zsystudio.puzzlehigh.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.data.User;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
-    public static final String EXTRA_IS_LOGIN = "com.example.zsystudio.puzzlehigh.main.isLogined";
+    private final String TAG = "MainFragment";
 
     private boolean isLogin;
 
     private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout;
 
-    public static MainFragment newInstance(boolean _isLogin) {
+    public static MainFragment newInstance() {
         Bundle args = new Bundle();
-        args.putBoolean(EXTRA_IS_LOGIN, _isLogin);
         MainFragment fragment = new MainFragment();
         fragment.setArguments(args);
         return fragment;
@@ -32,7 +33,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isLogin = getArguments().getBoolean(EXTRA_IS_LOGIN);
+        isLogin = User.isLogin();
     }
 
     @Override
@@ -45,6 +46,10 @@ public class MainFragment extends Fragment {
         mBtnRank = (Button) v.findViewById(R.id.main_rank);
         mBtnSetting = (Button) v.findViewById(R.id.main_setting);
         mBtnAbout = (Button) v.findViewById(R.id.main_about);
+        if(isLogin){
+            mBtnLogin.setVisibility(View.INVISIBLE);
+            mBtnRegister.setVisibility((View.INVISIBLE));
+        }
         return v;
     }
 }
