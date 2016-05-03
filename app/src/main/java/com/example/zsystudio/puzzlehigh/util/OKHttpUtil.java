@@ -28,8 +28,8 @@ public class OKHttpUtil {
     private static PostScoreResponse postScoreResponse;
     private static GetRankResponse getRankResponse;
     private static GetPicListResponse getPicListResponse;
-    private final String host = "http://172.18.42.97/";
-    private final String port = "80";
+    private static final String host = "http://172.18.42.97/";
+    private static final String port = "80";
 
     private static final String REGISTER = "registe.php";
     private static final String LOGIN = "login.php";
