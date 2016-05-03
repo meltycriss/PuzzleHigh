@@ -40,7 +40,7 @@ public class OKHttpUtil {
 
     private static final OkHttpClient client = new OkHttpClient();
 
-    public static LoginResponse login(String username, String password){
+    public static LoginResponse login(String username, String password) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -55,7 +55,7 @@ public class OKHttpUtil {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                loginResponse = new LoginResponse();
             }
 
             @Override
@@ -64,9 +64,11 @@ public class OKHttpUtil {
             }
         });
         return loginResponse;
-    };
+    }
 
-    public static RegisterResponse register(String username, String nickname, String password){
+    ;
+
+    public static RegisterResponse register(String username, String nickname, String password) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -93,7 +95,7 @@ public class OKHttpUtil {
         return registerResponse;
     }
 
-    public static PostPictureResponse postPic(String username, String image){
+    public static PostPictureResponse postPic(String username, String image) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -120,7 +122,7 @@ public class OKHttpUtil {
         return postPictureResponse;
     }
 
-    public static PostScoreResponse postScore(String username, int score){
+    public static PostScoreResponse postScore(String username, int score) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -147,7 +149,7 @@ public class OKHttpUtil {
         return postScoreResponse;
     }
 
-    public static GetRankResponse getRank(int score){
+    public static GetRankResponse getRank(int score) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("score", Integer.toString(score))
@@ -173,7 +175,7 @@ public class OKHttpUtil {
         return getRankResponse;
     }
 
-    public static GetPicListResponse getPicList(){
+    public static GetPicListResponse getPicList() {
 
         RequestBody requestBody = new FormBody.Builder()
                 .build();

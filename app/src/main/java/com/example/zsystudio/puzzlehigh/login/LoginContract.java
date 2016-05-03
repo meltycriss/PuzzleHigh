@@ -8,10 +8,14 @@ import com.example.zsystudio.puzzlehigh.util.BaseView;
  */
 public interface LoginContract {
     interface Presenter extends BasePresenter{
-
+        void login(String _username,String _password);
     }
 
     interface View extends BaseView<Presenter>{
+        void toastMsg(String _msg);
 
+        void showPrompt(String _msg);
+
+        void hidePrompt();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.zsystudio.puzzlehigh.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,14 +13,14 @@ import android.widget.Button;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.login.LoginActivity;
+import com.example.zsystudio.puzzlehigh.register.RegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener{
     private final String TAG = "MainFragment";
-
-    private boolean isLogin;
 
     private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout;
 
@@ -33,7 +34,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isLogin = User.isLogin();
     }
 
     @Override
@@ -46,10 +46,28 @@ public class MainFragment extends Fragment {
         mBtnRank = (Button) v.findViewById(R.id.main_rank);
         mBtnSetting = (Button) v.findViewById(R.id.main_setting);
         mBtnAbout = (Button) v.findViewById(R.id.main_about);
-        if(isLogin){
+        if(User.isLogin()){
             mBtnLogin.setVisibility(View.INVISIBLE);
             mBtnRegister.setVisibility((View.INVISIBLE));
         }
+        mBtnLogin.setOnClickListener(MainFragment.this);
+        mBtnRegister.setOnClickListener(MainFragment.this);
         return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.main_login:{
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.main_register:{
+                Intent intent = new Intent(getContext(), RegisterActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
     }
 }

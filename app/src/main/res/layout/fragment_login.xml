@@ -7,21 +7,32 @@
         android:id="@+id/login_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="用户名"/>
+        android:hint="用户名" />
+
     <EditText
         android:id="@+id/login_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="密码"/>
+        android:hint="密码"
+        android:inputType="textPassword" />
+
     <Button
         android:id="@+id/login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="登录"/>
+        android:text="登录" />
+
     <Button
         android:id="@+id/login_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="注册"/>
+        android:text="注册" />
+
+    <TextView
+        android:id="@+id/login_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:visibility="invisible" />
 
 </LinearLayout>
