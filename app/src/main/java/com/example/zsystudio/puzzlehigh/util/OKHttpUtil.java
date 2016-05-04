@@ -1,12 +1,14 @@
 package com.example.zsystudio.puzzlehigh.util;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetPicListResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetRankResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.LoginResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostPictureResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostScoreResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.RegisterResponse;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -40,7 +42,54 @@ public class OKHttpUtil {
 
     private static final OkHttpClient client = new OkHttpClient();
 
-    public static LoginResponse login(String username, String password) {
+    // HttpCallback包含两个在UI线程执行的方法，在这里做UI操作
+    public interface HttpCallback {
+
+        public void onFailure(final Response response, final Throwable throwable);
+
+        public void onSuccess(final Response response) throws IOException;
+    }
+
+    private static void doRequest(final Request request, final HttpCallback httpCallback) {
+
+        // enqueue方法异步请求，其中的两个回调方法都是在后台运行的
+        client.newCall(request).enqueue(new Callback() {
+
+            // 通过MainLooper将回调post到UI线程执行
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        httpCallback.onFailure(null, e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response){
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!response.isSuccessful()){
+                            httpCallback.onFailure(response, null);
+                            return;
+                        }
+                        try {
+                            httpCallback.onSuccess(response);
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    public static void login(final String username, final String password,
+                             final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -52,23 +101,13 @@ public class OKHttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                loginResponse = new LoginResponse();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                loginResponse = new Gson().fromJson(response.body().string(), LoginResponse.class);
-            }
-        });
-        return loginResponse;
+        doRequest(request, httpCallback);
     }
 
     ;
 
-    public static RegisterResponse register(String username, String nickname, String password) {
+    public static void register(final String username, final String nickname, final String password,
+                                            final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -81,21 +120,11 @@ public class OKHttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                registerResponse = new Gson().fromJson(response.body().string(), RegisterResponse.class);
-            }
-        });
-        return registerResponse;
+        doRequest(request, httpCallback);
     }
 
-    public static PostPictureResponse postPic(String username, String image) {
+    public static void postPic(final String username, final String image,
+                               final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -107,22 +136,12 @@ public class OKHttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+        doRequest(request, httpCallback);
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                postPictureResponse = new Gson().fromJson(response.body().string(), PostPictureResponse.class);
-            }
-        });
-
-        return postPictureResponse;
     }
 
-    public static PostScoreResponse postScore(String username, int score) {
+    public static void postScore(final String username, final int score,
+                                              final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -134,22 +153,11 @@ public class OKHttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+        doRequest(request, httpCallback);
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                postScoreResponse = new Gson().fromJson(response.body().string(), PostScoreResponse.class);
-            }
-        });
-
-        return postScoreResponse;
     }
 
-    public static GetRankResponse getRank(int score) {
+    public static void getRank(final int score, final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("score", Integer.toString(score))
@@ -160,22 +168,11 @@ public class OKHttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+        doRequest(request, httpCallback);
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                getRankResponse = new Gson().fromJson(response.body().string(), GetRankResponse.class);
-            }
-        });
-
-        return getRankResponse;
     }
 
-    public static GetPicListResponse getPicList() {
+    public static void getPicList(final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .build();
@@ -185,18 +182,7 @@ public class OKHttpUtil {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+        doRequest(request, httpCallback);
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                getPicListResponse = new Gson().fromJson(response.body().string(), GetPicListResponse.class);
-            }
-        });
-
-        return getPicListResponse;
     }
 }
