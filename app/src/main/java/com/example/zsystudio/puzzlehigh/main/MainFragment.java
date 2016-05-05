@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.Button;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.game.GameActivity;
 import com.example.zsystudio.puzzlehigh.login.LoginActivity;
 import com.example.zsystudio.puzzlehigh.register.RegisterActivity;
 
@@ -52,6 +52,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         }
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);
+        mBtnStart.setOnClickListener(MainFragment.this);
         return v;
     }
 
@@ -68,6 +69,13 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             }
+            case R.id.main_start:{
+/*                Intent intent = new Intent(getContext(),GameActivity.class);
+                startActivity(intent);*/
+                GameActivity.actionStart(getContext(),5);
+                break;
+            }
+
         }
     }
 }
