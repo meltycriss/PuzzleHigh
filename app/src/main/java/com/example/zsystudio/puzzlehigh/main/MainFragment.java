@@ -15,6 +15,7 @@ import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.data.User;
 import com.example.zsystudio.puzzlehigh.login.LoginActivity;
 import com.example.zsystudio.puzzlehigh.register.RegisterActivity;
+import com.example.zsystudio.puzzlehigh.select_image.SelectImageActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +53,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         }
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);
+        mBtnStart.setOnClickListener(MainFragment.this);
         return v;
     }
 
@@ -65,6 +67,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
             }
             case R.id.main_register:{
                 Intent intent = new Intent(getContext(), RegisterActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.main_start:{
+                Intent intent = new Intent(getContext(), SelectImageActivity.class);
                 startActivity(intent);
                 break;
             }

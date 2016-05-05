@@ -178,7 +178,7 @@ public class OKHttpUtil {
                 .build();
 
         Request request = new Request.Builder()
-                .url(host + GETRANK)
+                .url(host + GETPICLIST)
                 .post(requestBody)
                 .build();
 

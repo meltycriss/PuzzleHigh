@@ -1,8 +1,11 @@
 package com.example.zsystudio.puzzlehigh.select_image;
 
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -27,12 +30,15 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
     private SelectImageContract.Presenter mPresenter;
 
     private RecyclerView mRclist;
-    private RecyclerAdapter mAdapter;
+    private RecyclerAdapter mNativeAdapter, mNetAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<ImageItem> mData = new ArrayList<ImageItem>();
+    private List<ImageItem> nativePicList = new ArrayList<ImageItem>();
+//    private List<ImageItem> netPicList = new ArrayList<ImageItem>();
 
     private Button loadmore;
     private PopupMenu popupMenu;
+
+    private static int RESULT_LOAD_IMG = 1;
 
     @Override
     public void setPresenter(Object presenter) {
@@ -52,10 +58,12 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
 
         View v = inflater.inflate(R.layout.fragment_select_image, container, false);
 
-        mRclist = (RecyclerView) getActivity().findViewById(R.id.rc_list);
+        mRclist = (RecyclerView) v.findViewById(R.id.rc_list);
 
-        loadmore = (Button) getActivity().findViewById(R.id.load_more);
+        loadmore = (Button) v.findViewById(R.id.load_more);
         loadmore.setOnClickListener(this);
+
+        mPresenter.start();
 
         return v;
     }
@@ -78,13 +86,13 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.native_pic) {
-//                    Intent intent = new Intent(getActivity(), SelectPictureActivity.class);
-//                    intent.putExtra("mode", 1);
-//                    startActivity(intent);
+                    // Create intent to Open Image applications like Gallery, Google Photos
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    // Start the Intent
+                    getActivity().startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
                 } else {
-//                    Intent intent = new Intent(PictureListActivity.this, NetPictureListActivity.class);
-//                    intent.putExtra("mode", 2);
-//                    startActivity(intent);
+                    mPresenter.getNetPicList();
                 }
                 return true;
             }
@@ -94,25 +102,32 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
     @Override
     public void showNativePicList() {
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(getContext());
 //        mLayoutManager = new GridLayoutManager(this, 2);
         mRclist.setLayoutManager(mLayoutManager);
         mRclist.setHasFixedSize(true);
 
         mRclist.setItemAnimator(new DefaultItemAnimator());
+        mRclist.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                if (parent.getChildAdapterPosition(view) != 0)
+                    outRect.top = 30;
+            }
+        });
 
         for (int i = 0; i < 6; i++) {
             ImageItem imageItem = new ImageItem();
             imageItem.setId(R.drawable.main_logo);
-            mData.add(imageItem);
+            nativePicList.add(imageItem);
         }
-        mAdapter = new RecyclerAdapter(getActivity(), mData);
-        mRclist.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(
+        mNativeAdapter = new RecyclerAdapter(getContext(), nativePicList);
+        mRclist.setAdapter(mNativeAdapter);
+        mNativeAdapter.setOnItemClickListener(
                 new RecyclerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(final View view, int position) {
-                        Toast.makeText(getActivity(), "test" + position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
 
 //                        Intent intent = new Intent(getActivity(), SelectPictureActivity.class);
 //                        intent.putExtra("mode", 0);
@@ -120,6 +135,24 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
 //                        startActivity(intent);
                     }
                 });
+
+        loadmore.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showNetPicList(ArrayList<ImageItem> arrayList) {
+
+        mNetAdapter = new RecyclerAdapter(getContext(), arrayList);
+        mRclist.swapAdapter(mNetAdapter, false);
+        mNetAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        loadmore.setVisibility(View.GONE);
     }
 }
 
