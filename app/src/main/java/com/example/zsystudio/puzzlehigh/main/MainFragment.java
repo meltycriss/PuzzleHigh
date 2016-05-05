@@ -15,6 +15,7 @@ import com.example.zsystudio.puzzlehigh.data.User;
 import com.example.zsystudio.puzzlehigh.game.GameActivity;
 import com.example.zsystudio.puzzlehigh.login.LoginActivity;
 import com.example.zsystudio.puzzlehigh.register.RegisterActivity;
+import com.example.zsystudio.puzzlehigh.select_image.SelectImageActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,12 +71,12 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 break;
             }
             case R.id.main_start:{
-/*                Intent intent = new Intent(getContext(),GameActivity.class);
-                startActivity(intent);*/
-                GameActivity.actionStart(getContext(),5);
+/*                GameActivity.actionStart(getContext(),5);
+                break;*/
+                Intent intent = new Intent(getContext(), SelectImageActivity.class);
+                startActivity(intent);
                 break;
             }
-
         }
     }
 }
