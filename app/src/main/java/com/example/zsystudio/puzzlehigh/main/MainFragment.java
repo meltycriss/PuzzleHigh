@@ -71,11 +71,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 break;
             }
             case R.id.main_start:{
-/*                GameActivity.actionStart(getContext(),5);
-                break;*/
-                Intent intent = new Intent(getContext(), SelectImageActivity.class);
-                startActivity(intent);
+                GameActivity.actionStart(getContext(),2);
                 break;
+/*                Intent intent = new Intent(getContext(), SelectImageActivity.class);
+                startActivity(intent);
+                break;*/
             }
         }
     }

@@ -30,7 +30,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements PuzzleView.GameOverCallBack{
     public static final int MSG_TIMER = 75532;
     public static final int MSG_GAME_CHECKOUT = 75533;
 
@@ -41,6 +41,11 @@ public class GameActivity extends AppCompatActivity {
     int GameStatus = PuzzleView.GAME_ON;
 
     private int mDifficulty;
+
+    @Override
+    public void onGameOver() {
+        GameStatus = PuzzleView.GAME_OVER;
+    }
 
     public static void actionStart(Context _context, int _difficulty){
         Intent intent = new Intent(_context,GameActivity.class);
@@ -54,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
 
         mDifficulty = getIntent().getIntExtra(EXTRA_DIFFICULTY, 3);
 
-        final PuzzleView puzzleView = new PuzzleView(GameActivity.this, mDifficulty);
+        final PuzzleView puzzleView = new PuzzleView(GameActivity.this, mDifficulty, GameActivity.this);
 //        final PuzzleView puzzleView = new PuzzleView(GameActivity.this);
         super.setContentView(puzzleView);
         final TextView tvCountDown = new TextView(GameActivity.this);
@@ -119,7 +124,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    class PuzzleView extends View {
+/*    class PuzzleView extends View {
         public static final int GAME_ON = 0;
         public static final int GAME_OVER = 1;
         public static final int GAME_CHECKOUT = 2;
@@ -349,5 +354,5 @@ public class GameActivity extends AppCompatActivity {
             invalidate();
             return true;
         }
-    }
+    }*/
 }
