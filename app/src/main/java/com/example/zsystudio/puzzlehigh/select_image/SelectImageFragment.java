@@ -2,6 +2,7 @@ package com.example.zsystudio.puzzlehigh.select_image;
 
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +27,10 @@ import java.util.List;
 /**
  * Created by liaoyt on 16-5-4.
  */
-public class SelectImageFragment extends Fragment implements SelectImageContract.View, View.OnClickListener {
+public class SelectImageFragment extends Fragment
+        implements SelectImageContract.View,
+                    View.OnClickListener,
+                    RecyclerAdapter.OnItemClickListener {
 
     private SelectImageContract.Presenter mPresenter;
 
@@ -33,16 +38,23 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
     private RecyclerAdapter mNativeAdapter, mNetAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<ImageItem> nativePicList = new ArrayList<ImageItem>();
-//    private List<ImageItem> netPicList = new ArrayList<ImageItem>();
+    private List<ImageItem> netPicList = new ArrayList<ImageItem>();
 
     private Button loadmore;
     private PopupMenu popupMenu;
 
-    private static int RESULT_LOAD_IMG = 1;
+
+    private static int STATE_NATIVE = 100;
+    private static int STATE_NET = 101;
+    private int currentState;
 
     @Override
     public void setPresenter(Object presenter) {
         mPresenter = (SelectImageContract.Presenter) presenter;
+    }
+
+    public SelectImageContract.Presenter getPresenter(){
+        return mPresenter;
     }
 
     public static SelectImageFragment newInstance() {
@@ -86,11 +98,7 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.native_pic) {
-                    // Create intent to Open Image applications like Gallery, Google Photos
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    // Start the Intent
-                    getActivity().startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+                    mPresenter.getLocalPic();
                 } else {
                     mPresenter.getNetPicList();
                 }
@@ -123,36 +131,43 @@ public class SelectImageFragment extends Fragment implements SelectImageContract
         }
         mNativeAdapter = new RecyclerAdapter(getContext(), nativePicList);
         mRclist.setAdapter(mNativeAdapter);
-        mNativeAdapter.setOnItemClickListener(
-                new RecyclerAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(final View view, int position) {
-                        Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
+        mNativeAdapter.setOnItemClickListener(this);
+        currentState = STATE_NATIVE;
+        loadmore.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showNetPicList(final ArrayList<ImageItem> arrayList) {
+
+        netPicList = arrayList;
+        mNetAdapter = new RecyclerAdapter(getContext(), arrayList);
+        mRclist.swapAdapter(mNetAdapter, true);
+        mNetAdapter.setOnItemClickListener(this);
+        currentState = STATE_NET;
+        loadmore.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        if (currentState == STATE_NATIVE){
+
+//            Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
+
+            Uri uri = Uri.parse("android.resource://com.example.zsystudio.puzzlehigh/" + R.drawable.main_logo);
+            Log.d("My_uri", uri.toString());
 
 //                        Intent intent = new Intent(getActivity(), SelectPictureActivity.class);
 //                        intent.putExtra("mode", 0);
 //                        intent.putExtra("position", position);
 //                        startActivity(intent);
-                    }
-                });
+        } else if (currentState == STATE_NET){
 
-        loadmore.setVisibility(View.VISIBLE);
-    }
+//            Toast.makeText(getContext(), netPicList.get(position).getText(), Toast.LENGTH_SHORT).show();
 
-    @Override
-    public void showNetPicList(ArrayList<ImageItem> arrayList) {
+            Uri uri = mPresenter.imageDownload(getContext(), netPicList.get(position));
+            Log.d("My_uri", uri.toString());
 
-        mNetAdapter = new RecyclerAdapter(getContext(), arrayList);
-        mRclist.swapAdapter(mNetAdapter, false);
-        mNetAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        loadmore.setVisibility(View.GONE);
+        }
     }
 }
 

@@ -20,7 +20,7 @@ import com.example.zsystudio.puzzlehigh.select_image.SelectImageActivity;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements View.OnClickListener{
+public class MainFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "MainFragment";
 
     private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout;
@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         mBtnRank = (Button) v.findViewById(R.id.main_rank);
         mBtnSetting = (Button) v.findViewById(R.id.main_setting);
         mBtnAbout = (Button) v.findViewById(R.id.main_about);
-        if(User.isLogin()){
+        if (User.getInstance().isLogin()) {
             mBtnLogin.setVisibility(View.INVISIBLE);
             mBtnRegister.setVisibility((View.INVISIBLE));
         }
@@ -59,23 +59,23 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.main_login:{
+        switch (v.getId()) {
+            case R.id.main_login: {
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
                 break;
             }
-            case R.id.main_register:{
+            case R.id.main_register: {
                 Intent intent = new Intent(getContext(), RegisterActivity.class);
                 startActivity(intent);
                 break;
             }
-            case R.id.main_start:{
-                GameActivity.actionStart(getContext(),2);
-                break;
-/*                Intent intent = new Intent(getContext(), SelectImageActivity.class);
+            case R.id.main_start: {
+//                GameActivity.actionStart(getContext(),2);
+//                break;
+                Intent intent = new Intent(getContext(), SelectImageActivity.class);
                 startActivity(intent);
-                break;*/
+                break;
             }
         }
     }

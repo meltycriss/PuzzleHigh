@@ -32,8 +32,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                 LoginResponse lr = new Gson().fromJson(response.body().string(), LoginResponse.class);
 
                 if (lr.getSuccess() == 1) {
-                    User.setIsLogin(true);
-                    User.setUserName(_username);
+                    User.getInstance().setIsLogin(true);
+                    User.getInstance().setUserName(_username);
                     mView.hidePrompt();
                     mView.toastMsg("success");
                 } else {

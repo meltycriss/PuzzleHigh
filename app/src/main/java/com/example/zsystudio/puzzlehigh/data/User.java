@@ -1,56 +1,64 @@
 package com.example.zsystudio.puzzlehigh.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * Created by Criss on 2016/4/30.
  */
 
 public class User {
-    public static boolean isLogin() {
+    public boolean isLogin() {
         return isLogin;
     }
 
-    public static void setIsLogin(boolean isLogin) {
-        User.isLogin = isLogin;
+    public void setIsLogin(boolean isLogin) {
+        isLogin = isLogin;
     }
 
-    public static String getNickName() {
+    public String getNickName() {
         return nickName;
     }
 
-    public static void setNickName(String nickName) {
-        User.nickName = nickName;
+    public void setNickName(String nickName) {
+        nickName = nickName;
     }
 
-    public static String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public static void setUserName(String userName) {
-        User.userName = userName;
+    public void setUserName(String userName) {
+        userName = userName;
     }
 
-    public static int getGamePoint() {
+    public int getGamePoint() {
         return gamePoint;
     }
 
-    public static void setGamePoint(int gamePoint) {
-        User.gamePoint = gamePoint;
+    public void setGamePoint(int gamePoint) {
+        gamePoint = gamePoint;
     }
 
     private static User ourInstance = new User();
 
-    private static boolean isLogin = false;
+    private boolean isLogin;
 
-    private static String nickName;
+    private String nickName;
 
-    private static String userName;
+    private String userName;
 
-    private static int gamePoint;
+    private int gamePoint;
 
     public static User getInstance() {
         return ourInstance;
     }
 
     private User() {
+
+        this.isLogin = false;
+        this.nickName = "";
+        this.userName = "";
+        this.gamePoint = 0;
     }
 }
