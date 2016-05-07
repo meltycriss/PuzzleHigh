@@ -71,7 +71,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 break;
             }
             case R.id.main_start:{
-                GameActivity.actionStart(getContext(),2);
+                GameActivity.actionStart(getContext(),3);
                 break;
 /*                Intent intent = new Intent(getContext(), SelectImageActivity.class);
                 startActivity(intent);

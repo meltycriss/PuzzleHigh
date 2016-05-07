@@ -26,6 +26,7 @@ class PuzzleView extends View {
     public static final int GAME_CHECKOUT = 2;
 
     private int mPiece;
+
     private int mGameStatus;
     private GameOverCallBack mCallBack;
 
@@ -39,6 +40,7 @@ class PuzzleView extends View {
     int width = (int) (wwidth * 0.9);
     int height = width;
     Bitmap a = BitmapFactory.decodeResource(this.getResources(), R.drawable.testpic);
+
 
     Bitmap background;
     InputStream bcakground2;
@@ -193,6 +195,7 @@ class PuzzleView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+
         canvas.drawBitmap(background, 0, 0, null);
         canvas.drawBitmap(clockimg, (int) (wwidth / 5), sy - (int) (wwidth / 5) - 10, null);
         canvas.drawBitmap(timebackground, (int) (wwidth / 5 * 2), sy - (int) (wwidth / 5 / 4 * 3) - 10, null);
