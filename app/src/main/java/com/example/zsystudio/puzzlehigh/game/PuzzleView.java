@@ -9,14 +9,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.util.IOUtil;
 
 import java.io.InputStream;
 import java.util.LinkedList;
+
 /**
  * Created by Criss on 2016/5/6.
  */
@@ -26,12 +30,70 @@ class PuzzleView extends View {
     public static final int GAME_CHECKOUT = 2;
 
     private int mPiece;
+    private Uri mImageUri;
 
     private int mGameStatus;
     private GameOverCallBack mCallBack;
 
-    public interface GameOverCallBack{
+    public interface GameOverCallBack {
         void onGameOver();
+    }
+
+    public PuzzleView(Context context, int _piece, Uri _imageUri, GameOverCallBack _callBack) {
+        super(context);
+        mPiece = _piece;
+        mImageUri = _imageUri;
+        mCallBack = _callBack;
+
+        mGameStatus = GAME_ON;
+
+        b = new Bitmap[mPiece * mPiece];
+
+        link = new boolean[mPiece * mPiece][mPiece * mPiece];
+        x = new int[mPiece * mPiece];
+        y = new int[mPiece * mPiece];
+        f = new boolean[mPiece * mPiece];
+        positionx = new int[mPiece * mPiece];
+        positiony = new int[mPiece * mPiece];
+
+
+        width = width - width % mPiece;
+        height = height - height % mPiece;
+        wid = width / mPiece;
+        hei = height / mPiece;
+        paint.setAntiAlias(true);
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setStrokeWidth(2);
+        paint.setTextSize(24);
+        a = Bitmap.createScaledBitmap(a, width, height, true);
+        iniPath();
+        Shader shader = new BitmapShader(a, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(shader);
+        paint2.setColor(Color.BLUE);
+        paint2.setStyle(Paint.Style.STROKE);
+        for (int i = 0; i < mPiece; i++) {
+            for (int t = 0; t < mPiece; t++) {
+                int pw = wid;
+                int ph = hei;
+                int sw = 0;
+                int sh = 0;
+                positionx[index] = t * wid + sx;
+                positiony[index] = i * hei + sy;
+                x[index] = (int) (Math.random() * 0.9 * wwidth);
+                y[index] = (int) (Math.random() * 0.8 * wheight + 20);
+                f[index] = false;
+                list.add(index);
+                index++;
+            }
+        }
+        bcakground2 = getResources().openRawResource(R.raw.game_baground);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inTempStorage = new byte[100 * 1024];
+        background = BitmapFactory.decodeStream(bcakground2, null, opts);
+        background = Bitmap.createScaledBitmap(background, (int) wwidth, (int) wheight, true);
+        clockimg = Bitmap.createScaledBitmap(clockimg, (int) (wwidth / 5), (int) (wwidth / 5), true);
+        timebackground = Bitmap.createScaledBitmap(timebackground, (int) (wwidth / 5 * 2), (int) (wwidth / 5 / 2), true);
     }
 
     WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -40,7 +102,7 @@ class PuzzleView extends View {
     int width = (int) (wwidth * 0.9);
     int height = width;
     Bitmap a = BitmapFactory.decodeResource(this.getResources(), R.drawable.testpic);
-
+    //Bitmap a = IOUtil.getBitmapFromUri(getContext(),mImageUri);
 
     Bitmap background;
     InputStream bcakground2;
@@ -64,6 +126,7 @@ class PuzzleView extends View {
     Paint paint = new Paint();
     Paint paint2 = new Paint();
     int count = 0;
+
     private Path createPiecePath(int min, int offX, int offY, PieceEdge eTop, PieceEdge eRight, PieceEdge eBottom, PieceEdge eLeft) {
         Path p = new Path();
         p.moveTo(offX, offY);
@@ -136,62 +199,6 @@ class PuzzleView extends View {
         }
     }
 
-    public PuzzleView(Context context, int _piece, GameOverCallBack _callBack) {
-        super(context);
-        mPiece = _piece;
-        mGameStatus = GAME_ON;
-        mCallBack = _callBack;
-
-        b = new Bitmap[mPiece * mPiece];
-
-        link = new boolean[mPiece * mPiece][mPiece * mPiece];
-        x = new int[mPiece * mPiece];
-        y = new int[mPiece * mPiece];
-        f = new boolean[mPiece * mPiece];
-        positionx = new int[mPiece * mPiece];
-        positiony = new int[mPiece * mPiece];
-
-
-
-
-        width = width - width % mPiece;
-        height = height - height % mPiece;
-        wid = width / mPiece;
-        hei = height / mPiece;
-        paint.setAntiAlias(true);
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setStrokeWidth(2);
-        paint.setTextSize(24);
-        a = Bitmap.createScaledBitmap(a, width, height, true);
-        iniPath();
-        Shader shader = new BitmapShader(a, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint.setShader(shader);
-        paint2.setColor(Color.BLUE);
-        paint2.setStyle(Paint.Style.STROKE);
-        for (int i = 0; i < mPiece; i++) {
-            for (int t = 0; t < mPiece; t++) {
-                int pw = wid;
-                int ph = hei;
-                int sw = 0;
-                int sh = 0;
-                positionx[index] = t * wid + sx;
-                positiony[index] = i * hei + sy;
-                x[index] = (int) (Math.random() * 0.9 * wwidth);
-                y[index] = (int) (Math.random() * 0.8 * wheight + 20);
-                f[index] = false;
-                list.add(index);
-                index++;
-            }
-        }
-        bcakground2 = getResources().openRawResource(R.raw.game_baground);
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inTempStorage = new byte[100 * 1024];
-        background = BitmapFactory.decodeStream(bcakground2, null, opts);
-        background = Bitmap.createScaledBitmap(background, (int) wwidth, (int) wheight, true);
-        clockimg = Bitmap.createScaledBitmap(clockimg, (int) (wwidth / 5), (int) (wwidth / 5), true);
-        timebackground = Bitmap.createScaledBitmap(timebackground, (int) (wwidth / 5 * 2), (int) (wwidth / 5 / 2), true);
-    }
 
     @Override
     public void onDraw(Canvas canvas) {

@@ -1,19 +1,26 @@
 package com.example.zsystudio.puzzlehigh.game;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.util.IOUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,6 +29,8 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  */
 public class GameFragment extends Fragment implements PuzzleView.GameOverCallBack{
+    private final String TAG = "GameFragment";
+
     public static final String EXTRA_DIFFICULTY = "GameFragment.difficulty";
 
     public static final int MSG_TIMER = 75532;
@@ -40,6 +49,7 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     int GameStatus = PuzzleView.GAME_ON;
 
     private int mDifficulty;
+    private Uri mImageUri;
 
     @Override
     public void onGameOver() {
@@ -50,6 +60,10 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDifficulty = getArguments().getInt(EXTRA_DIFFICULTY);
+
+        mImageUri = Uri.parse("android.resource://"+getContext().getPackageName()+"/drawable/testpic");
+
+        if(mImageUri==null) Log.d(TAG, "test");
 
         mCheckoutHandler = new Handler() {
             @Override
@@ -115,11 +129,12 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_fragment,container,false);
-        mPuzzleView = new PuzzleView(getContext(),mDifficulty,GameFragment.this);
+        mPuzzleView = new PuzzleView(getContext(),mDifficulty,mImageUri,GameFragment.this);
         ((FrameLayout) v).addView(mPuzzleView,0);
 
         mTvCountDown = new TextView(getContext());
@@ -128,6 +143,20 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         FrameLayout.LayoutParams lpCountDown = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lpCountDown.setMargins(500, 130, 0, 0);
         ((FrameLayout) v).addView(mTvCountDown,1,lpCountDown);
+
+/*        TextView tvDebug = new TextView(getContext());
+        tvDebug.setText(mImageUri.getPath().toString());
+        ((FrameLayout) v).addView(tvDebug,1);*/
+
+        ImageView ivDebug = new ImageView(getContext());
+        //ivDebug.setImageURI(mImageUri);
+        Bitmap bitmap = IOUtil.getBitmapFromUri(getContext(),mImageUri);
+        ivDebug.setImageBitmap(bitmap);
+        ((FrameLayout) v).addView(ivDebug,1);
+
+
+
+
         return v;
     }
 
