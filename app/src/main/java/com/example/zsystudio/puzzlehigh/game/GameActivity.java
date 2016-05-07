@@ -25,7 +25,7 @@ public class GameActivity extends SingleFragmentActivity {
         mSource = getIntent().getIntExtra(EXTRA_SOURCE,LOCAL);
         //mImageUri = Uri.parse(getIntent().getStringExtra(EXTRA_IMAGE_URI));
         mImageUri = getIntent().getParcelableExtra(EXTRA_IMAGE_URI);
-        return GameFragment.newInstance(2,mImageUri);
+        return GameSettingFragment.newInstance(mSource,mImageUri);
     }
 
     public static void actionStart(Context _context, int _source, Uri _imageUri){
