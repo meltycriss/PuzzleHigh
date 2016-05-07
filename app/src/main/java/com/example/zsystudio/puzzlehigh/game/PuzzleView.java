@@ -35,6 +35,8 @@ class PuzzleView extends View {
     private int mGameStatus;
     private GameOverCallBack mCallBack;
 
+    private Bitmap a;
+
     public interface GameOverCallBack {
         void onGameOver();
     }
@@ -46,6 +48,9 @@ class PuzzleView extends View {
         mCallBack = _callBack;
 
         mGameStatus = GAME_ON;
+
+        //a = BitmapFactory.decodeFile(mImageUri.getPath());
+        a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
 
         b = new Bitmap[mPiece * mPiece];
 
@@ -101,8 +106,10 @@ class PuzzleView extends View {
     float wheight = wm.getDefaultDisplay().getHeight();
     int width = (int) (wwidth * 0.9);
     int height = width;
-    Bitmap a = BitmapFactory.decodeResource(this.getResources(), R.drawable.testpic);
-    //Bitmap a = IOUtil.getBitmapFromUri(getContext(),mImageUri);
+//    Bitmap a = BitmapFactory.decodeResource(this.getResources(), R.drawable.testpic);
+
+//    Bitmap a = BitmapFactory.decodeFile(mImageUri.getPath());
+//    Bitmap a = IOUtil.getBitmapFromUri(getContext(),mImageUri);
 
     Bitmap background;
     InputStream bcakground2;

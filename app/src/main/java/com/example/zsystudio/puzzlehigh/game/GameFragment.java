@@ -32,6 +32,7 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     private final String TAG = "GameFragment";
 
     public static final String EXTRA_DIFFICULTY = "GameFragment.difficulty";
+    public static final String EXTRA_IMAGE_URI = "GameFragment.image_uri";
 
     public static final int MSG_TIMER = 75532;
     public static final int MSG_GAME_CHECKOUT = 75533;
@@ -60,10 +61,9 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDifficulty = getArguments().getInt(EXTRA_DIFFICULTY);
-
-        mImageUri = Uri.parse("android.resource://"+getContext().getPackageName()+"/drawable/testpic");
-
-        if(mImageUri==null) Log.d(TAG, "test");
+        //mImageUri = Uri.parse(getArguments().getString(EXTRA_IMAGE_URI));
+        mImageUri = getArguments().getParcelable(EXTRA_IMAGE_URI);
+//        mImageUri = Uri.parse("android.resource://"+getContext().getPackageName()+"/drawable/testpic");
 
         mCheckoutHandler = new Handler() {
             @Override
@@ -117,25 +117,24 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
             }
         };
         mTimer.schedule(mTimerTask, 0, 100);
-
     }
 
-    public static GameFragment newInstance(int _difficulty) {
+    public static GameFragment newInstance(int _difficulty, Uri _imageUri) {
         Bundle args = new Bundle();
         args.putInt(EXTRA_DIFFICULTY,_difficulty);
+        args.putParcelable(EXTRA_IMAGE_URI,_imageUri);
+        //args.putString(EXTRA_IMAGE_URI,_imageUri.toString());
         GameFragment fragment = new GameFragment();
         fragment.setArguments(args);
         return fragment;
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_fragment,container,false);
         mPuzzleView = new PuzzleView(getContext(),mDifficulty,mImageUri,GameFragment.this);
-        ((FrameLayout) v).addView(mPuzzleView,0);
+        ((FrameLayout) v).addView(mPuzzleView,0); //addView(View, layerIndex)
 
         mTvCountDown = new TextView(getContext());
         mTvCountDown.setTextSize(33);
@@ -143,20 +142,6 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         FrameLayout.LayoutParams lpCountDown = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lpCountDown.setMargins(500, 130, 0, 0);
         ((FrameLayout) v).addView(mTvCountDown,1,lpCountDown);
-
-/*        TextView tvDebug = new TextView(getContext());
-        tvDebug.setText(mImageUri.getPath().toString());
-        ((FrameLayout) v).addView(tvDebug,1);*/
-
-        ImageView ivDebug = new ImageView(getContext());
-        //ivDebug.setImageURI(mImageUri);
-        Bitmap bitmap = IOUtil.getBitmapFromUri(getContext(),mImageUri);
-        ivDebug.setImageBitmap(bitmap);
-        ((FrameLayout) v).addView(ivDebug,1);
-
-
-
-
         return v;
     }
 
