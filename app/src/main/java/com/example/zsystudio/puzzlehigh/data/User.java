@@ -40,6 +40,27 @@ public class User {
         gamePoint = gamePoint;
     }
 
+    public void init(Context context){
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+
+        isLogin = sharedPreferences.getBoolean("isLogin", false);
+        userName = sharedPreferences.getString("userName", "");
+        nickName = sharedPreferences.getString("nickName", "");
+        gamePoint = sharedPreferences.getInt("gamePoint", 0);
+
+    }
+
+    public void save(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLogin", isLogin);
+        editor.putString("userName", userName);
+        editor.putString("nickName", nickName);
+        editor.putInt("gamePoint", gamePoint);
+        editor.commit();
+    }
+
     private static User ourInstance = new User();
 
     private boolean isLogin;

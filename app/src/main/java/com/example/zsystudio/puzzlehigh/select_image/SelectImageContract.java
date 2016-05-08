@@ -18,23 +18,14 @@ public interface SelectImageContract {
 
     interface Presenter extends BasePresenter{
 
-        void createMyDir();
-
         void getNetPicList();
 
         void getLocalPic();
-
-        void selectImageUriAfterKikat();
-
-        void cropImageUriAfterKikat(Uri uri);
-
-        void cropImageUri();
 
         Uri dealWithResult(int requestCode, int resultCode, Intent data);
 
         Uri imageDownload(final Context context, final ImageItem imageItem);
 
-        Target getTarget(final String path);
     }
 
     interface View extends BaseView{

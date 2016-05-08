@@ -144,16 +144,14 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
 
     // 4.4以上裁剪图片方法实现
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    @Override
-    public void selectImageUriAfterKikat() {
+    private void selectImageUriAfterKikat() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
         activity.startActivityForResult(intent, SELECET_A_PICTURE_AFTER_KIKAT);
     }
 
-    @Override
-    public void cropImageUriAfterKikat(Uri uri) {
+    private void cropImageUriAfterKikat(Uri uri) {
 
         filename = User.getInstance().getUserName() +
                 new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date()) +
@@ -177,8 +175,7 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
     }
 
     // 4.4以下的裁剪图片方法实现
-    @Override
-    public void cropImageUri() {
+    private void cropImageUri() {
 
         filename = User.getInstance().getUserName() +
                 new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date()) +
@@ -200,8 +197,7 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
         activity.startActivityForResult(intent, SELECT_A_PICTURE);
     }
 
-    @Override
-    public void createMyDir() {
+    private void createMyDir() {
         // 创建文件夹
         File file = new File(FILEPATH);
         if (!file.exists())
@@ -218,8 +214,7 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
         return uri;
     }
 
-    @Override
-    public Target getTarget(final String path) {
+    private Target getTarget(final String path) {
 
         Target target = new Target() {
             @Override
