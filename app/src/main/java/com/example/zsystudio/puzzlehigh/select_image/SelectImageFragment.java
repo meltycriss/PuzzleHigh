@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.game.GameActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,17 +156,15 @@ public class SelectImageFragment extends Fragment
 
             Uri uri = Uri.parse("android.resource://com.example.zsystudio.puzzlehigh/" + R.drawable.main_logo);
             Log.d("My_uri", uri.toString());
+            GameActivity.actionStart(getContext(), GameActivity.REMOTE, uri);
 
-//                        Intent intent = new Intent(getActivity(), SelectPictureActivity.class);
-//                        intent.putExtra("mode", 0);
-//                        intent.putExtra("position", position);
-//                        startActivity(intent);
         } else if (currentState == STATE_NET){
 
 //            Toast.makeText(getContext(), netPicList.get(position).getText(), Toast.LENGTH_SHORT).show();
 
             Uri uri = mPresenter.imageDownload(getContext(), netPicList.get(position));
             Log.d("My_uri", uri.toString());
+            GameActivity.actionStart(getContext(), GameActivity.REMOTE, uri);
 
         }
     }

@@ -14,15 +14,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.os.EnvironmentCompat;
-import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 
 import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.game.GameActivity;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetPicListResponse;
 import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
 import com.google.gson.Gson;
-import com.squareup.picasso.Downloader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -114,7 +112,7 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
     }
 
     @Override
-    public Uri dealWithResult(int requestCode, int resultCode, Intent data) {
+    public void dealWithResult(int requestCode, int resultCode, Intent data) {
 
         Uri imageUri = null;
 
@@ -123,7 +121,6 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
                 //				Log.i("zou", "4.4以下的");
                 imageUri = Uri.fromFile(new File(FILEPATH, filename));
                 Log.d("My_uri", imageUri.toString());
-                return imageUri;
             }
         } else if (requestCode == SELECET_A_PICTURE_AFTER_KIKAT) {
             if (resultCode == Activity.RESULT_OK && null != data) {
@@ -136,10 +133,11 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
 
             imageUri = Uri.fromFile(new File(FILEPATH, filename));
             Log.d("My_uri", imageUri.toString());
-            return imageUri;
         }
 
-        return null;
+        if (null != imageUri){
+            GameActivity.actionStart(activity, GameActivity.LOCAL, imageUri);
+        }
     }
 
     // 4.4以上裁剪图片方法实现

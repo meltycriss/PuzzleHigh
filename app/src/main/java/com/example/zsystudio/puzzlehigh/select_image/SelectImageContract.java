@@ -22,7 +22,7 @@ public interface SelectImageContract {
 
         void getLocalPic();
 
-        Uri dealWithResult(int requestCode, int resultCode, Intent data);
+        void dealWithResult(int requestCode, int resultCode, Intent data);
 
         Uri imageDownload(final Context context, final ImageItem imageItem);
 
