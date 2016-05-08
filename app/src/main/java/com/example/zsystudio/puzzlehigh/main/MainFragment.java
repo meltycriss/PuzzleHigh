@@ -2,6 +2,7 @@ package com.example.zsystudio.puzzlehigh.main;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -71,10 +72,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 break;
             }
             case R.id.main_start: {
-//                GameActivity.actionStart(getContext(),2);
-//                break;
-                Intent intent = new Intent(getContext(), SelectImageActivity.class);
-                startActivity(intent);
                 break;
             }
         }
