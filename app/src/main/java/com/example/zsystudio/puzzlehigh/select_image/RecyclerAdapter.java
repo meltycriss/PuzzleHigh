@@ -104,7 +104,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (null != mData.get(position).getUrl())
             Picasso.with(context).load(mData.get(position).getUrl()).transform(new MyTransform()).into(viewHolder.imageView);
         else
-            Picasso.with(context).load(R.drawable.main_logo).transform(new MyTransform()).into(viewHolder.imageView);
+            Picasso.with(context).load(mData.get(position).getId()).transform(new MyTransform()).into(viewHolder.imageView);
 //            Picasso.with(context).load(R.drawable.pic1 + position).into(viewHolder.imageView);
     }
 

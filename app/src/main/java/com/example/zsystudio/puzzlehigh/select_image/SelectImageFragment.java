@@ -30,8 +30,8 @@ import java.util.List;
  */
 public class SelectImageFragment extends Fragment
         implements SelectImageContract.View,
-                    View.OnClickListener,
-                    RecyclerAdapter.OnItemClickListener {
+        View.OnClickListener,
+        RecyclerAdapter.OnItemClickListener {
 
     private SelectImageContract.Presenter mPresenter;
 
@@ -54,7 +54,7 @@ public class SelectImageFragment extends Fragment
         mPresenter = (SelectImageContract.Presenter) presenter;
     }
 
-    public SelectImageContract.Presenter getPresenter(){
+    public SelectImageContract.Presenter getPresenter() {
         return mPresenter;
     }
 
@@ -127,7 +127,7 @@ public class SelectImageFragment extends Fragment
 
         for (int i = 0; i < 6; i++) {
             ImageItem imageItem = new ImageItem();
-            imageItem.setId(R.drawable.main_logo);
+            imageItem.setId(R.drawable.inner_image_01 + i);
             nativePicList.add(imageItem);
         }
         mNativeAdapter = new RecyclerAdapter(getContext(), nativePicList);
@@ -150,15 +150,15 @@ public class SelectImageFragment extends Fragment
 
     @Override
     public void onItemClick(View view, int position) {
-        if (currentState == STATE_NATIVE){
+        if (currentState == STATE_NATIVE) {
 
 //            Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
 
-            Uri uri = Uri.parse("android.resource://com.example.zsystudio.puzzlehigh/" + R.drawable.main_logo);
+            Uri uri = Uri.parse("android.resource://com.example.zsystudio.puzzlehigh/" + nativePicList.get(position).getId());
             Log.d("My_uri", uri.toString());
             GameActivity.actionStart(getContext(), GameActivity.REMOTE, uri);
 
-        } else if (currentState == STATE_NET){
+        } else if (currentState == STATE_NET) {
 
 //            Toast.makeText(getContext(), netPicList.get(position).getText(), Toast.LENGTH_SHORT).show();
 
