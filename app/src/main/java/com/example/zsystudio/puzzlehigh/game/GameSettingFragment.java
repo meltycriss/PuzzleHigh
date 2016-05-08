@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.zsystudio.puzzlehigh.R;
 
@@ -72,7 +73,11 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
         mSwitchIsUpload = (Switch) v.findViewById(R.id.game_setting_is_upload);
         mSwitchIsUpload.setOnCheckedChangeListener(GameSettingFragment.this);
         mSwitchIsUpload.setChecked(mIsUpload);
-        if(mSource == GameActivity.REMOTE) mSwitchIsUpload.setVisibility(View.INVISIBLE);
+        if(mSource == GameActivity.REMOTE){
+            TextView tvIsUpload = (TextView) v.findViewById(R.id.game_setting_tv_is_upload);
+            tvIsUpload.setVisibility(View.INVISIBLE);
+            mSwitchIsUpload.setVisibility(View.INVISIBLE);
+        }
 
         //preview the image
         mIvImage = (ImageView) v.findViewById(R.id.game_setting_image);
