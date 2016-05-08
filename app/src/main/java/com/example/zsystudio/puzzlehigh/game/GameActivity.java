@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.util.SingleFragmentActivity;
 
@@ -17,13 +16,12 @@ public class GameActivity extends SingleFragmentActivity {
     public static final String EXTRA_SOURCE = "GameActivity.source";
     public static final String EXTRA_IMAGE_URI = "GameActivity.image_uri";
 
-    private int mSource;
-    private Uri mImageUri;
+    private int mSource; //whether the uri from local or remote
+    private Uri mImageUri; //image uri
 
     @Override
     protected Fragment createFragment() {
         mSource = getIntent().getIntExtra(EXTRA_SOURCE,LOCAL);
-        //mImageUri = Uri.parse(getIntent().getStringExtra(EXTRA_IMAGE_URI));
         mImageUri = getIntent().getParcelableExtra(EXTRA_IMAGE_URI);
         return GameSettingFragment.newInstance(mSource,mImageUri);
     }
@@ -31,7 +29,6 @@ public class GameActivity extends SingleFragmentActivity {
     public static void actionStart(Context _context, int _source, Uri _imageUri){
         Intent intent = new Intent(_context,GameActivity.class);
         intent.putExtra(EXTRA_SOURCE,_source);
-        //intent.putExtra(EXTRA_IMAGE_URI,_imageUri.toString());
         intent.putExtra(EXTRA_IMAGE_URI,_imageUri);
         _context.startActivity(intent);
     }

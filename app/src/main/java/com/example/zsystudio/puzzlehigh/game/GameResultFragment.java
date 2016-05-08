@@ -9,33 +9,37 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
 
-import org.w3c.dom.Text;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GameResultFragment extends DialogFragment implements DialogInterface.OnClickListener{
+    public static final String TAG = "GameResultFragment";
     public static final String EXTRA_CURR_SCORE = "GameResult.currScore";
     public static final String EXTRA_TOTAL_SCORE = "GameResult.totalScore";
+    public static final String EXTRA_REST_TIME_S = "GameResult.restTimeS";
+    public static final String EXTRA_REST_TIME_MS = "GameResult.restTimeMS";
 
     private int mCurrScore;
     private int mTotalScore;
+    private int mRestTimeS;
+    private int mRestTimeMS;
 
     private TextView mTvCurrScore;
     private TextView mTvTotalScore;
+    private TextView mTvRestTime;
 
-    public static GameResultFragment newInstance(int _currScore, int _totalScore){
+    public static GameResultFragment newInstance(int _currScore, int _totalScore, int _restTimeS, int _restTimeMS){
         Bundle args = new Bundle();
         args.putInt(EXTRA_CURR_SCORE,_currScore);
         args.putInt(EXTRA_TOTAL_SCORE,_totalScore);
+        args.putInt(EXTRA_REST_TIME_S,_restTimeS);
+        args.putInt(EXTRA_REST_TIME_MS,_restTimeMS);
         GameResultFragment fragment = new GameResultFragment();
         fragment.setArguments(args);
         return fragment;
@@ -46,6 +50,8 @@ public class GameResultFragment extends DialogFragment implements DialogInterfac
         super.onCreate(savedInstanceState);
         mCurrScore = getArguments().getInt(EXTRA_CURR_SCORE);
         mTotalScore = getArguments().getInt(EXTRA_TOTAL_SCORE);
+        mRestTimeS = getArguments().getInt(EXTRA_REST_TIME_S);
+        mRestTimeMS = getArguments().getInt(EXTRA_REST_TIME_MS);
     }
 
     @NonNull
@@ -55,8 +61,10 @@ public class GameResultFragment extends DialogFragment implements DialogInterfac
                 .inflate(R.layout.fragment_game_result,null);
         mTvCurrScore = (TextView) v.findViewById(R.id.game_result_curr_score);
         mTvTotalScore = (TextView) v.findViewById(R.id.game_result_total_score);
+        mTvRestTime = (TextView) v.findViewById(R.id.game_result_rest_time);
         mTvCurrScore.setText(String.valueOf(mCurrScore));
         mTvTotalScore.setText(String.valueOf(mTotalScore));
+        mTvRestTime.setText(String.valueOf(mRestTimeS)+"s"+String.valueOf(mRestTimeMS)+"ms");
 
         return new AlertDialog.Builder(getContext())
                 .setView(v)

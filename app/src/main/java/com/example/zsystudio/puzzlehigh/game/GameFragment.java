@@ -1,26 +1,20 @@
 package com.example.zsystudio.puzzlehigh.game;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.zsystudio.puzzlehigh.R;
-import com.example.zsystudio.puzzlehigh.util.IOUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,15 +23,13 @@ import java.util.TimerTask;
  * A simple {@link Fragment} subclass.
  */
 public class GameFragment extends Fragment implements PuzzleView.GameOverCallBack{
-    private final String TAG = "GameFragment";
+    public static final String TAG = "GameFragment";
 
     public static final String EXTRA_DIFFICULTY = "GameFragment.difficulty";
     public static final String EXTRA_IMAGE_URI = "GameFragment.image_uri";
 
     public static final int MSG_TIMER = 75532;
-    public static final int MSG_GAME_CHECKOUT = 75533;
 
-    private Handler mCheckoutHandler;
     private Handler mCountDownHandler;
     private Timer mTimer;
     private TimerTask mTimerTask;
@@ -45,38 +37,51 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     private TextView mTvCountDown;
     private PuzzleView mPuzzleView;
 
-    int countDownS = 200;
-    int countDownMS = 00;
+    int countDownS = 100; //total game time in second
+    int countDownMS = 00; //total game time in microsecond
     int GameStatus = PuzzleView.GAME_ON;
 
     private int mDifficulty;
     private Uri mImageUri;
 
+    /*
+     * input: remaining time
+     * output: score for this game
+     */
+    private int getCurrScore(){
+        return (int) (mDifficulty*(countDownS+countDownMS*0.001));
+    }
+
+    /*
+     * function: add the current score to the total score
+     * output: total score
+     */
+    private int getTotalScore(){
+        return (int) (Math.random()*1000);
+    }
+
+    /*
+     * triggered by: time up or puzzle success
+     * function: deal with result
+     */
     @Override
     public void onGameOver() {
         GameStatus = PuzzleView.GAME_OVER;
+        mPuzzleView.setGameStatus(PuzzleView.GAME_OVER);
+        int currScore = getCurrScore();
+        int totalScore = getTotalScore();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        GameResultFragment dialog = GameResultFragment.newInstance(currScore, totalScore, countDownS, countDownMS);
+        dialog.show(fm, GameResultFragment.TAG);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDifficulty = getArguments().getInt(EXTRA_DIFFICULTY);
-        //mImageUri = Uri.parse(getArguments().getString(EXTRA_IMAGE_URI));
         mImageUri = getArguments().getParcelable(EXTRA_IMAGE_URI);
-//        mImageUri = Uri.parse("android.resource://"+getContext().getPackageName()+"/drawable/testpic");
 
-        mCheckoutHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == MSG_GAME_CHECKOUT) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("游戏结束");
-                    builder.setMessage("你的得分：" + countDownS);
-                    builder.show();
-                }
-            }
-        };
-
+        //count down display control
         mCountDownHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -93,20 +98,14 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
                     else if (countDownS > 0 || countDownMS > 0)
                         mTvCountDown.setText("00" + countDownS + ":" + countDownMS);
                     else {
-                        mTvCountDown.setTextSize(28);
                         GameStatus = PuzzleView.GAME_OVER;
-                        mTvCountDown.setText("游戏结束");
+                        onGameOver();
                     }
-                }
-                if (GameStatus == PuzzleView.GAME_OVER) {
-                    Message msg2 = new Message();
-                    msg2.what = MSG_GAME_CHECKOUT;
-                    mCheckoutHandler.sendMessage(msg2);
-                    GameStatus = PuzzleView.GAME_CHECKOUT;
                 }
             }
         };
 
+        //heartbeat
         mTimer = new Timer(true);
         mTimerTask = new TimerTask() {
             @Override
@@ -123,7 +122,6 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         Bundle args = new Bundle();
         args.putInt(EXTRA_DIFFICULTY,_difficulty);
         args.putParcelable(EXTRA_IMAGE_URI,_imageUri);
-        //args.putString(EXTRA_IMAGE_URI,_imageUri.toString());
         GameFragment fragment = new GameFragment();
         fragment.setArguments(args);
         return fragment;
@@ -134,7 +132,7 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_fragment,container,false);
         mPuzzleView = new PuzzleView(getContext(),mDifficulty,mImageUri,GameFragment.this);
-        ((FrameLayout) v).addView(mPuzzleView,0); //addView(View, layerIndex)
+        ((FrameLayout) v).addView(mPuzzleView,0); //addView(View, layerIndex), layerIndex control which one is on top
 
         mTvCountDown = new TextView(getContext());
         mTvCountDown.setTextSize(33);
@@ -144,5 +142,4 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         ((FrameLayout) v).addView(mTvCountDown,1,lpCountDown);
         return v;
     }
-
 }
