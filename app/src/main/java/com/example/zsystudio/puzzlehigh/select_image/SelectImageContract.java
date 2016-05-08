@@ -24,7 +24,7 @@ public interface SelectImageContract {
 
         void dealWithResult(int requestCode, int resultCode, Intent data);
 
-        Uri imageDownload(final Context context, final ImageItem imageItem);
+        void imageDownload(final Context context, final ImageItem imageItem, final SelectImagePresenter.DownloadCallback downloadCallback);
 
     }
 

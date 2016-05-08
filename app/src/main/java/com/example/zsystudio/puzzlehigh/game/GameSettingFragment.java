@@ -1,6 +1,7 @@
 package com.example.zsystudio.puzzlehigh.game;
 
 
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.util.IOUtil;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetPicListResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostPictureResponse;
 import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
@@ -88,6 +90,8 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
         //preview the image
         mIvImage = (ImageView) v.findViewById(R.id.game_setting_image);
         mIvImage.setImageURI(mImageUri);
+//        mIvImage.setImageBitmap(BitmapFactory.decodeFile(mImageUri.getPath()));
+
 
         //game launcher
         mBtnStart = (Button) v.findViewById(R.id.game_setting_start);
