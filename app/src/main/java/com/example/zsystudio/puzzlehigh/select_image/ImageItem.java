@@ -13,7 +13,7 @@ public class ImageItem {
     public ImageItem() {
         text = null;
         url = null;
-        id = R.drawable.main_logo;
+        id = R.drawable.inner_image_01;
     }
 
     public void setText(String text) {

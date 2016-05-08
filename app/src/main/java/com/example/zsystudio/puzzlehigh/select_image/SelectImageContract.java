@@ -1,8 +1,13 @@
 package com.example.zsystudio.puzzlehigh.select_image;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+
 import com.example.zsystudio.puzzlehigh.util.BasePresenter;
 import com.example.zsystudio.puzzlehigh.util.BaseView;
 import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -15,7 +20,12 @@ public interface SelectImageContract {
 
         void getNetPicList();
 
-        void selectLocalPic();
+        void getLocalPic();
+
+        void dealWithResult(int requestCode, int resultCode, Intent data);
+
+        Uri imageDownload(final Context context, final ImageItem imageItem);
+
     }
 
     interface View extends BaseView{

@@ -16,8 +16,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetPicListResponse;
+import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostPictureResponse;
+import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -122,6 +132,10 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.game_setting_start: {
+
+                if(mIsUpload)
+                    uploadImage(mImageUri);
+
                 GameFragment fragment = GameFragment.newInstance(mDifficulty,mImageUri);
                 this.getFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment, GameFragment.TAG)
@@ -132,5 +146,23 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
             default:
                 break;
         }
+    }
+
+    private void uploadImage(Uri mImageUri){
+
+        User user = User.getInstance();
+
+        OKHttpUtil.postPic("zhangsan", mImageUri, new OKHttpUtil.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Throwable throwable) {
+                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Response response) throws IOException {
+                PostPictureResponse postPictureResponse = new Gson().fromJson(response.body().string(), PostPictureResponse.class);
+                Toast.makeText(getContext(), postPictureResponse.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,7 +1,13 @@
 package com.example.zsystudio.puzzlehigh.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Base64;
+import android.util.Log;
 
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetPicListResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.GetRankResponse;
@@ -10,6 +16,7 @@ import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostPictureResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostScoreResponse;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.RegisterResponse;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -35,7 +42,7 @@ public class OKHttpUtil {
 
     private static final String REGISTER = "registe.php";
     private static final String LOGIN = "login.php";
-    private static final String POSTPIC = "postPic.php";
+    private static final String POSTPIC = "postPicture.php";
     private static final String POSTSCORE = "postScore.php";
     private static final String GETRANK = "getRank.php";
     private static final String GETPICLIST = "getPicList.php";
@@ -123,21 +130,85 @@ public class OKHttpUtil {
         doRequest(request, httpCallback);
     }
 
-    public static void postPic(final String username, final String image,
+    public static void postPic(final String username, final Uri imageUri,
                                final HttpCallback httpCallback) {
 
-        RequestBody requestBody = new FormBody.Builder()
-                .add("username", username)
-                .add("image", image)
-                .build();
+        ImageDecodeHelper helper = new ImageDecodeHelper(username, imageUri, httpCallback);
+        helper.encodeImagetoString();
 
-        Request request = new Request.Builder()
-                .url(host + POSTPIC)
-                .post(requestBody)
-                .build();
+    }
 
-        doRequest(request, httpCallback);
+    // 处理图片的压缩与上传
+    private static class ImageDecodeHelper{
 
+        private String username;
+        private String imgPath;
+        private String encodedString;
+        private Bitmap bitmap;
+        private HttpCallback httpCallback;
+
+        ImageDecodeHelper(final String username, final Uri imageUri,
+                          final HttpCallback httpCallback) {
+            this.username = username;
+            this.imgPath = imageUri.getPath();
+            Log.d("ImageDecodeHelper", imgPath);
+            this.httpCallback = httpCallback;
+            this.bitmap = null;
+            this.encodedString = null;
+        }
+
+        public void encodeImagetoString(){
+
+            Log.d("ImageDecodeHelper", "encodeImage");
+
+            new AsyncTask<Void, Void, String>() {
+
+                @Override
+                protected String doInBackground(Void... params) {
+                    BitmapFactory.Options options = null;
+                    options = new BitmapFactory.Options();
+                    options.inSampleSize = 1;
+                    bitmap = BitmapFactory.decodeFile(imgPath,
+                            options);
+                    Log.d("ImageDecodeHelper", "bitmap Btye count" + bitmap.getByteCount());
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    // Must compress the Image to reduce image size to make upload easy
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 25, stream);
+                    byte[] byte_arr = stream.toByteArray();
+                    Log.d("ImageDecodeHelper", "byte array length" + byte_arr.length);
+                    // Encode Image to String
+                    encodedString = Base64.encodeToString(byte_arr, 0);
+                    bitmap.recycle();
+                    return "";
+                }
+
+                @Override
+                protected void onPostExecute(String msg) {
+                    Log.d("ImageDecodeHelper", "trigger");
+                    triggerImageUpload();
+                }
+            }.execute(null, null, null);
+        }
+
+        public void triggerImageUpload() {
+            makeHTTPCall();
+        }
+
+        public void makeHTTPCall(){
+
+            Log.d("ImageDecodeHelper", "makeCall");
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("username", username)
+                    .add("image", encodedString)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(host + POSTPIC)
+                    .post(requestBody)
+                    .build();
+
+            doRequest(request, httpCallback);
+        }
     }
 
     public static void postScore(final String username, final int score,

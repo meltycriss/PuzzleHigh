@@ -13,8 +13,10 @@
 
     <Button
         android:id="@+id/load_more"
+        android:background="@drawable/text_border_long"
         android:text="更多图片"
+        android:textSize="30sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp" />
 
 </LinearLayout>

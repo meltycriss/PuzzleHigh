@@ -1,56 +1,85 @@
 package com.example.zsystudio.puzzlehigh.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
  * Created by Criss on 2016/4/30.
  */
 
 public class User {
-    public static boolean isLogin() {
+    public boolean isLogin() {
         return isLogin;
     }
 
-    public static void setIsLogin(boolean isLogin) {
-        User.isLogin = isLogin;
+    public void setIsLogin(boolean isLogin) {
+        isLogin = isLogin;
     }
 
-    public static String getNickName() {
+    public String getNickName() {
         return nickName;
     }
 
-    public static void setNickName(String nickName) {
-        User.nickName = nickName;
+    public void setNickName(String nickName) {
+        nickName = nickName;
     }
 
-    public static String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public static void setUserName(String userName) {
-        User.userName = userName;
+    public void setUserName(String userName) {
+        userName = userName;
     }
 
-    public static int getGamePoint() {
+    public int getGamePoint() {
         return gamePoint;
     }
 
-    public static void setGamePoint(int gamePoint) {
-        User.gamePoint = gamePoint;
+    public void setGamePoint(int gamePoint) {
+        gamePoint = gamePoint;
+    }
+
+    public void init(Context context){
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+
+        isLogin = sharedPreferences.getBoolean("isLogin", false);
+        userName = sharedPreferences.getString("userName", "");
+        nickName = sharedPreferences.getString("nickName", "");
+        gamePoint = sharedPreferences.getInt("gamePoint", 0);
+
+    }
+
+    public void save(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLogin", isLogin);
+        editor.putString("userName", userName);
+        editor.putString("nickName", nickName);
+        editor.putInt("gamePoint", gamePoint);
+        editor.commit();
     }
 
     private static User ourInstance = new User();
 
-    private static boolean isLogin = false;
+    private boolean isLogin;
 
-    private static String nickName;
+    private String nickName;
 
-    private static String userName;
+    private String userName;
 
-    private static int gamePoint;
+    private int gamePoint;
 
     public static User getInstance() {
         return ourInstance;
     }
 
     private User() {
+
+        this.isLogin = false;
+        this.nickName = "";
+        this.userName = "";
+        this.gamePoint = 0;
     }
 }
