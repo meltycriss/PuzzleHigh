@@ -42,7 +42,7 @@ public class OKHttpUtil {
 
     private static final String REGISTER = "registe.php";
     private static final String LOGIN = "login.php";
-    private static final String POSTPIC = "postPic.php";
+    private static final String POSTPIC = "postPicture.php";
     private static final String POSTSCORE = "postScore.php";
     private static final String GETRANK = "getRank.php";
     private static final String GETPICLIST = "getPicList.php";
@@ -158,6 +158,9 @@ public class OKHttpUtil {
         }
 
         public void encodeImagetoString(){
+
+            Log.d("ImageDecodeHelper", "encodeImage");
+
             new AsyncTask<Void, Void, String>() {
 
                 @Override
@@ -167,12 +170,12 @@ public class OKHttpUtil {
                     options.inSampleSize = 1;
                     bitmap = BitmapFactory.decodeFile(imgPath,
                             options);
-                    Log.d("bitmap byte count", "" + bitmap.getByteCount());
+                    Log.d("ImageDecodeHelper", "bitmap Btye count" + bitmap.getByteCount());
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     // Must compress the Image to reduce image size to make upload easy
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 25, stream);
                     byte[] byte_arr = stream.toByteArray();
-                    Log.d("byte_arr byte count", "" + byte_arr.length);
+                    Log.d("ImageDecodeHelper", "byte array length" + byte_arr.length);
                     // Encode Image to String
                     encodedString = Base64.encodeToString(byte_arr, 0);
                     bitmap.recycle();
@@ -181,6 +184,7 @@ public class OKHttpUtil {
 
                 @Override
                 protected void onPostExecute(String msg) {
+                    Log.d("ImageDecodeHelper", "trigger");
                     triggerImageUpload();
                 }
             }.execute(null, null, null);
@@ -191,6 +195,8 @@ public class OKHttpUtil {
         }
 
         public void makeHTTPCall(){
+
+            Log.d("ImageDecodeHelper", "makeCall");
             RequestBody requestBody = new FormBody.Builder()
                     .add("username", username)
                     .add("image", encodedString)
