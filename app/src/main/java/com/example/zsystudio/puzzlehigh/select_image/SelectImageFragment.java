@@ -1,12 +1,10 @@
 package com.example.zsystudio.puzzlehigh.select_image;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -17,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.game.GameActivity;
@@ -152,7 +149,7 @@ public class SelectImageFragment extends Fragment
     public void onItemClick(View view, int position) {
         if (currentState == STATE_NATIVE) {
 
-//            Toast.makeText(getContext(), "test" + position, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "testpic01" + position, Toast.LENGTH_SHORT).show();
 
             Uri uri = Uri.parse("android.resource://com.example.zsystudio.puzzlehigh/" + nativePicList.get(position).getId());
             Log.d("My_uri", uri.toString());

@@ -19,9 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity" />
-        <activity android:name=".register.RegisterActivity"></activity>
-        <activity android:name=".game.GameActivity"></activity>
-        <activity android:name=".select_image.SelectImageActivity"></activity>
+        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".game.GameActivity" />
+        <activity android:name=".select_image.SelectImageActivity" />
     </application>
 
 </manifest>

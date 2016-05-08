@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.Shader;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.util.IOUtil;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.LinkedList;
 
@@ -52,7 +54,10 @@ class PuzzleView extends View {
 
         mGameStatus = GAME_ON;
 
-        a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
+//        a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
+        a = BitmapFactory.decodeFile(mImageUri.getPath());
+        if (null != a)
+            Log.d("My_test", "not null");
 
         b = new Bitmap[mPiece * mPiece];
 
