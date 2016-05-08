@@ -27,18 +27,21 @@ import java.util.LinkedList;
 class PuzzleView extends View {
     public static final int GAME_ON = 0;
     public static final int GAME_OVER = 1;
-    public static final int GAME_CHECKOUT = 2;
 
-    private int mPiece;
+    private int mPiece; //how many pieces the image will be cut
     private Uri mImageUri;
 
     private int mGameStatus;
-    private GameOverCallBack mCallBack;
+    private GameOverCallBack mCallBack; //callback interface handle game over
 
     private Bitmap a;
 
     public interface GameOverCallBack {
         void onGameOver();
+    }
+
+    public void setGameStatus(int _gameStatus){
+        mGameStatus = _gameStatus;
     }
 
     public PuzzleView(Context context, int _piece, Uri _imageUri, GameOverCallBack _callBack) {
@@ -49,7 +52,6 @@ class PuzzleView extends View {
 
         mGameStatus = GAME_ON;
 
-        //a = BitmapFactory.decodeFile(mImageUri.getPath());
         a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
 
         b = new Bitmap[mPiece * mPiece];
