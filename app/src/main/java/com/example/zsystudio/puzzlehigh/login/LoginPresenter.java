@@ -1,6 +1,10 @@
 package com.example.zsystudio.puzzlehigh.login;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.main.MainActivity;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.LoginResponse;
 import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
 import com.google.gson.Gson;
@@ -16,7 +20,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View mView;
 
-    public void login(final String _username, final String _password) {
+    public void login(final Context _context, final String _username, final String _password) {
 
         // 调用的时候需要实现一个HttpCallback，才能在UI线程执行更新界面操作
         OKHttpUtil.login(_username, _password, new OKHttpUtil.HttpCallback() {
@@ -34,8 +38,10 @@ public class LoginPresenter implements LoginContract.Presenter {
                 if (lr.getSuccess() == 1) {
                     User.getInstance().setIsLogin(true);
                     User.getInstance().setUserName(_username);
+                    User.getInstance().save(_context);
                     mView.hidePrompt();
-                    mView.toastMsg("success");
+                    mView.toastMsg(User.getInstance().getUserName());
+//                    _context.startActivity(new Intent(_context, MainActivity.class));
                 } else {
                     mView.showPrompt("fail to login");
                 }

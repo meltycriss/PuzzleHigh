@@ -13,7 +13,7 @@ public class User {
     }
 
     public void setIsLogin(boolean isLogin) {
-        isLogin = isLogin;
+        this.isLogin = isLogin;
     }
 
     public String getNickName() {
@@ -21,7 +21,7 @@ public class User {
     }
 
     public void setNickName(String nickName) {
-        nickName = nickName;
+        this.nickName = nickName;
     }
 
     public String getUserName() {
@@ -29,7 +29,7 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        userName = userName;
+        this.userName = userName;
     }
 
     public int getGamePoint() {
@@ -37,7 +37,7 @@ public class User {
     }
 
     public void setGamePoint(int gamePoint) {
-        gamePoint = gamePoint;
+        this.gamePoint = gamePoint;
     }
 
     public void init(Context context){
@@ -45,8 +45,8 @@ public class User {
         SharedPreferences sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
 
         isLogin = sharedPreferences.getBoolean("isLogin", false);
-        userName = sharedPreferences.getString("userName", "");
-        nickName = sharedPreferences.getString("nickName", "");
+        userName = sharedPreferences.getString("userName", "zhangsan");
+        nickName = sharedPreferences.getString("nickName", "zhangsan");
         gamePoint = sharedPreferences.getInt("gamePoint", 0);
 
     }

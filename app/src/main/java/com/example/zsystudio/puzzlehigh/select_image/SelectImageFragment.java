@@ -148,6 +148,7 @@ public class SelectImageFragment extends Fragment
         loadmore.setVisibility(View.GONE);
     }
 
+
     @Override
     public void onItemClick(View view, int position) {
         if (currentState == STATE_NATIVE) {

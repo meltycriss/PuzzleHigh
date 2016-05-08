@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.about.AboutActivity;
 import com.example.zsystudio.puzzlehigh.data.User;
 import com.example.zsystudio.puzzlehigh.game.GameActivity;
 import com.example.zsystudio.puzzlehigh.login.LoginActivity;
+import com.example.zsystudio.puzzlehigh.rank.RankActivity;
 import com.example.zsystudio.puzzlehigh.register.RegisterActivity;
 import com.example.zsystudio.puzzlehigh.select_image.SelectImageActivity;
 
@@ -25,6 +28,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "MainFragment";
 
     private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout;
+    private TextView mTvUsername;
 
     public static MainFragment newInstance() {
         Bundle args = new Bundle();
@@ -36,6 +40,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        User.getInstance().init(getContext());
     }
 
     @Override
@@ -48,13 +53,23 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mBtnRank = (Button) v.findViewById(R.id.main_rank);
         mBtnSetting = (Button) v.findViewById(R.id.main_setting);
         mBtnAbout = (Button) v.findViewById(R.id.main_about);
+        mTvUsername = (TextView) v.findViewById(R.id.main_username);
         if (User.getInstance().isLogin()) {
             mBtnLogin.setVisibility(View.INVISIBLE);
             mBtnRegister.setVisibility((View.INVISIBLE));
+            mTvUsername.setVisibility(View.VISIBLE);
+            mTvUsername.setText(User.getInstance().getUserName());
+        }
+        else{
+            mBtnLogin.setVisibility(View.VISIBLE);
+            mBtnRegister.setVisibility((View.VISIBLE));
+            mTvUsername.setVisibility(View.INVISIBLE);
         }
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);
         mBtnStart.setOnClickListener(MainFragment.this);
+        mBtnAbout.setOnClickListener(MainFragment.this);
+        mBtnRank.setOnClickListener(MainFragment.this);
         return v;
     }
 
@@ -74,6 +89,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             case R.id.main_start: {
                 Intent intent = new Intent(getContext(), SelectImageActivity.class);
                 startActivity(intent);
+                break;
+            }
+            case R.id.main_about:{
+                AboutActivity.actionStart(getContext());
+                break;
+            }
+            case R.id.main_rank:{
+                RankActivity.actionStart(getContext());
                 break;
             }
         }

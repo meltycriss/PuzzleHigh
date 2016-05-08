@@ -1,5 +1,7 @@
 package com.example.zsystudio.puzzlehigh.login;
 
+import android.content.Context;
+
 import com.example.zsystudio.puzzlehigh.util.BasePresenter;
 import com.example.zsystudio.puzzlehigh.util.BaseView;
 
@@ -8,7 +10,7 @@ import com.example.zsystudio.puzzlehigh.util.BaseView;
  */
 public interface LoginContract {
     interface Presenter extends BasePresenter{
-        void login(String _username,String _password);
+        void login(Context _context, String _username, String _password);
     }
 
     interface View extends BaseView<Presenter>{

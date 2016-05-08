@@ -31,7 +31,6 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
 
     public void setPresenter(LoginContract.Presenter presenter) {
         mPresenter = presenter;
-
     }
 
     public static LoginFragment newInstance() {
@@ -75,7 +74,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_login: {
-                mPresenter.login(mEtUserName.getText().toString(), mEtPassword.getText().toString());
+                mPresenter.login(getContext(), mEtUserName.getText().toString(), mEtPassword.getText().toString());
                 break;
             }
             case R.id.login_register: {
