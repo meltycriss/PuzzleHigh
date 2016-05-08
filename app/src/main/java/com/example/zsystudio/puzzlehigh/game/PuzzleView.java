@@ -54,8 +54,8 @@ class PuzzleView extends View {
 
         mGameStatus = GAME_ON;
 
-//        a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
-        a = BitmapFactory.decodeFile(mImageUri.getPath());
+        a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
+
         if (null != a)
             Log.d("My_test", "not null");
 

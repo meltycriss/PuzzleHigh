@@ -2,6 +2,7 @@ package com.example.zsystudio.puzzlehigh.select_image;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -237,7 +238,8 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
                                 outputStream.close();
                             }
 
-                            final Uri uri = new Uri.Builder().path(path).build();
+//                            final Uri uri = Uri.fromFile(file);
+                            final Uri uri = new Uri.Builder().path(path).scheme(ContentResolver.SCHEME_FILE).build();
 
                             // 通过MainLooper将回调post到UI线程执行
                             Handler mainHandler = new Handler(Looper.getMainLooper());
