@@ -39,10 +39,10 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
 
             @Override
-            public void onSuccess(Response response) throws IOException {
+            public void onSuccess(String json) throws IOException {
 
                 // json解析没有封装，需要自性解析
-                LoginResponse lr = new Gson().fromJson(response.body().string(), LoginResponse.class);
+                LoginResponse lr = new Gson().fromJson(json, LoginResponse.class);
 
                 if (lr.getSuccess() == 1) {
                     mView.hidePrompt();

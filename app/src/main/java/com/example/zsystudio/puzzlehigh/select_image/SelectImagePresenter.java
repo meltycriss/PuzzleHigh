@@ -85,12 +85,12 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
             }
 
             @Override
-            public void onSuccess(Response response) throws IOException {
+            public void onSuccess(String json) throws IOException {
 
                 ArrayList<ImageItem> tempList = new ArrayList<ImageItem>();
                 ImageItem imageItem;
 
-                GetPicListResponse getPicListResponse = new Gson().fromJson(response.body().string(), GetPicListResponse.class);
+                GetPicListResponse getPicListResponse = new Gson().fromJson(json, GetPicListResponse.class);
 
                 for (int i = 0; i < getPicListResponse.getList().size(); i++) {
                     GetPicListResponse.ListBean item = getPicListResponse.getList().get(i);

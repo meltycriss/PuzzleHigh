@@ -164,8 +164,8 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
             }
 
             @Override
-            public void onSuccess(Response response) throws IOException {
-                PostPictureResponse postPictureResponse = new Gson().fromJson(response.body().string(), PostPictureResponse.class);
+            public void onSuccess(String json) throws IOException {
+                PostPictureResponse postPictureResponse = new Gson().fromJson(json, PostPictureResponse.class);
                 Toast.makeText(getContext(), postPictureResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

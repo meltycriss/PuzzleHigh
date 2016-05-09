@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.NetworkOnMainThreadException;
 import android.util.Base64;
 import android.util.Log;
 
@@ -54,7 +55,7 @@ public class OKHttpUtil {
 
         public void onFailure(final Response response, final Throwable throwable);
 
-        public void onSuccess(final Response response) throws IOException;
+        public void onSuccess(final String json) throws IOException;
     }
 
     private static void doRequest(final Request request, final HttpCallback httpCallback) {
@@ -67,30 +68,45 @@ public class OKHttpUtil {
 
             @Override
             public void onFailure(Call call, final IOException e) {
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        httpCallback.onFailure(null, e);
-                    }
-                });
+                e.printStackTrace();
             }
 
             @Override
-            public void onResponse(Call call, final Response response){
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!response.isSuccessful()){
-                            httpCallback.onFailure(response, null);
-                            return;
-                        }
-                        try {
-                            httpCallback.onSuccess(response);
-                        }catch (IOException e){
-                            e.printStackTrace();
-                        }
+            public void onResponse(Call call, final Response response) {
+                if (!response.isSuccessful()) {
+                    onFailure(call, null);
+                } else {
+                    try {
+                        final String json = response.body().string();
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    httpCallback.onSuccess(json);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
+
+                }
+//                mainHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (!response.isSuccessful()){
+//                            httpCallback.onFailure(response, null);
+//                            return;
+//                        }
+//                        try {
+//                            httpCallback.onSuccess(response);
+//                        }catch (IOException e){
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
             }
         });
     }
@@ -114,7 +130,7 @@ public class OKHttpUtil {
     ;
 
     public static void register(final String username, final String nickname, final String password,
-                                            final HttpCallback httpCallback) {
+                                final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
@@ -139,7 +155,7 @@ public class OKHttpUtil {
     }
 
     // 处理图片的压缩与上传
-    private static class ImageDecodeHelper{
+    private static class ImageDecodeHelper {
 
         private String username;
         private String imgPath;
@@ -157,7 +173,7 @@ public class OKHttpUtil {
             this.encodedString = null;
         }
 
-        public void encodeImagetoString(){
+        public void encodeImagetoString() {
 
             Log.d("ImageDecodeHelper", "encodeImage");
 
@@ -194,7 +210,7 @@ public class OKHttpUtil {
             makeHTTPCall();
         }
 
-        public void makeHTTPCall(){
+        public void makeHTTPCall() {
 
             Log.d("ImageDecodeHelper", "makeCall");
             RequestBody requestBody = new FormBody.Builder()
@@ -212,7 +228,7 @@ public class OKHttpUtil {
     }
 
     public static void postScore(final String username, final int score,
-                                              final HttpCallback httpCallback) {
+                                 final HttpCallback httpCallback) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)

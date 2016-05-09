@@ -32,9 +32,9 @@ public class RankPresenter implements RankContract.Presenter{
             }
 
             @Override
-            public void onSuccess(Response response) throws IOException {
+            public void onSuccess(String json) throws IOException {
                 // json解析没有封装，需要自性解析
-                GetRankResponse rr = new Gson().fromJson(response.body().string(), GetRankResponse.class);
+                GetRankResponse rr = new Gson().fromJson(json, GetRankResponse.class);
 
                 if (rr.getSuccess() == 1) {
                     mView.showInfoOfRank(RankFragment.RANK_USER,"",rr.getMyRank());

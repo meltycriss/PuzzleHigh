@@ -36,9 +36,9 @@ public class RegisterPresenter implements RegisterContract.Presenter{
             }
 
             @Override
-            public void onSuccess(Response response) throws IOException {
+            public void onSuccess(String json) throws IOException {
 
-                RegisterResponse rr = new Gson().fromJson(response.body().string(), RegisterResponse.class);
+                RegisterResponse rr = new Gson().fromJson(json, RegisterResponse.class);
 
                 if(rr.getSuccess() == 1){
                     mView.hidePrompt();

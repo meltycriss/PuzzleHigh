@@ -2,6 +2,17 @@ package com.example.zsystudio.puzzlehigh.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.NetworkOnMainThreadException;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.zsystudio.puzzlehigh.util.JsonBeans.PostScoreResponse;
+import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Response;
 
 /**
  * Created by Criss on 2016/4/30.
@@ -83,5 +94,21 @@ public class User {
         this.gamePoint = 0;
     }
 
-    public void update(){}
+    public void update(){
+
+        OKHttpUtil.postScore(userName, gamePoint, new OKHttpUtil.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(String json) throws IOException {
+
+                PostScoreResponse postScoreResponse = new Gson().fromJson(json, PostScoreResponse.class);
+
+                Log.d("PostScore", postScoreResponse.getMessage());
+            }
+        });
+    }
 }
