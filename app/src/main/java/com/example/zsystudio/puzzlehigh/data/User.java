@@ -82,4 +82,6 @@ public class User {
         this.userName = "";
         this.gamePoint = 0;
     }
+
+    public void update(){}
 }

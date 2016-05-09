@@ -1,5 +1,11 @@
 package com.example.zsystudio.puzzlehigh.register;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.login.LoginPresenter;
+import com.example.zsystudio.puzzlehigh.main.MainActivity;
 import com.example.zsystudio.puzzlehigh.util.JsonBeans.RegisterResponse;
 import com.example.zsystudio.puzzlehigh.util.OKHttpUtil;
 import com.google.gson.Gson;
@@ -21,7 +27,8 @@ public class RegisterPresenter implements RegisterContract.Presenter{
     }
 
     @Override
-    public void register(String _username, String _nickname, String _password) {
+    public void register(final Context _context, final String _username, final String _nickname, final String _password) {
+
         OKHttpUtil.register(_username, _nickname, _password, new OKHttpUtil.HttpCallback() {
             @Override
             public void onFailure(Response response, Throwable throwable) {
@@ -35,7 +42,8 @@ public class RegisterPresenter implements RegisterContract.Presenter{
 
                 if(rr.getSuccess() == 1){
                     mView.hidePrompt();
-                    mView.toastMsg("success");
+                    //mView.toastMsg("success");
+                    LoginPresenter.loginLocal(_context,_username);
                 }
                 else{
                     mView.showPrompt("fail to register");

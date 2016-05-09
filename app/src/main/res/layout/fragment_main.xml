@@ -16,10 +16,17 @@
         android:layout_marginTop="62dp"
         android:background="@drawable/logo" />
 
+    <Button
+        android:id="@+id/main_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注销"/>
+
     <TextView
         android:id="@+id/main_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/main_logout"
         android:text="test"/>
 
     <Button

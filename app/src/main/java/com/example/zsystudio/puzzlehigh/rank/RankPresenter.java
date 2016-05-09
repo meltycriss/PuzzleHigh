@@ -23,6 +23,7 @@ public class RankPresenter implements RankContract.Presenter{
 
     @Override
     public void getRank() {
+        mView.toastMsg("success");
 
         OKHttpUtil.getRank(User.getInstance().getGamePoint(), new OKHttpUtil.HttpCallback() {
             @Override

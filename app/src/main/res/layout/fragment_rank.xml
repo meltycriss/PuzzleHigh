@@ -6,53 +6,70 @@
     tools:context="com.example.zsystudio.puzzlehigh.rank.RankFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="关于" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="排行榜"/>
     <TextView
-        android:id="@+id/rank_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我"/>
     <TextView
+        android:id="@+id/rank_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载中"/>
+    <TextView
         android:id="@+id/rank_user_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="000"/>
+        android:text="加载中"/>
     <TextView
         android:id="@+id/rank_user_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"/>
+        android:text="加载中"/>
     <TextView
-        android:id="@+id/rank_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="第一名"/>
     <TextView
+        android:id="@+id/rank_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载中"/>
+    <TextView
         android:id="@+id/rank_first_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100"/>
+        android:text="加载中"/>
     <TextView
-        android:id="@+id/rank_second_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="第二名"/>
     <TextView
+        android:id="@+id/rank_second_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载中"/>
+    <TextView
         android:id="@+id/rank_second_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="200"/>
+        android:text="加载中"/>
     <TextView
-        android:id="@+id/rank_third_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="第三名"/>
     <TextView
+        android:id="@+id/rank_third_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载中"/>
+    <TextView
         android:id="@+id/rank_third_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="300"/>
+        android:text="加载中"/>
 </LinearLayout>

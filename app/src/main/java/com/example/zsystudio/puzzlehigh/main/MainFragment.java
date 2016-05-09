@@ -27,7 +27,7 @@ import com.example.zsystudio.puzzlehigh.select_image.SelectImageActivity;
 public class MainFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "MainFragment";
 
-    private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout;
+    private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout, mBtnLogout;
     private TextView mTvUsername;
 
     public static MainFragment newInstance() {
@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        User.getInstance().init(getContext());
+        //User.getInstance().init(getContext());
     }
 
     @Override
@@ -54,16 +54,21 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mBtnSetting = (Button) v.findViewById(R.id.main_setting);
         mBtnAbout = (Button) v.findViewById(R.id.main_about);
         mTvUsername = (TextView) v.findViewById(R.id.main_username);
+        mBtnLogout = (Button) v.findViewById(R.id.main_logout);
         if (User.getInstance().isLogin()) {
             mBtnLogin.setVisibility(View.INVISIBLE);
             mBtnRegister.setVisibility((View.INVISIBLE));
             mTvUsername.setVisibility(View.VISIBLE);
             mTvUsername.setText(User.getInstance().getUserName());
+            mBtnLogout.setVisibility(View.VISIBLE);
+            mBtnLogout.setOnClickListener(MainFragment.this);
         }
         else{
             mBtnLogin.setVisibility(View.VISIBLE);
             mBtnRegister.setVisibility((View.VISIBLE));
             mTvUsername.setVisibility(View.INVISIBLE);
+            mBtnLogout.setVisibility(View.INVISIBLE);
+
         }
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);
@@ -97,6 +102,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
             case R.id.main_rank:{
                 RankActivity.actionStart(getContext());
+                break;
+            }
+            case R.id.main_logout:{
+                User.getInstance().setIsLogin(false);
+                User.getInstance().save(getContext());
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 break;
             }
         }

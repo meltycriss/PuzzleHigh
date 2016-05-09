@@ -1,5 +1,7 @@
 package com.example.zsystudio.puzzlehigh.register;
 
+import android.content.Context;
+
 import com.example.zsystudio.puzzlehigh.login.LoginContract;
 import com.example.zsystudio.puzzlehigh.util.BasePresenter;
 import com.example.zsystudio.puzzlehigh.util.BaseView;
@@ -9,7 +11,7 @@ import com.example.zsystudio.puzzlehigh.util.BaseView;
  */
 public interface RegisterContract {
     interface Presenter extends BasePresenter{
-        void register(String _username,String _nickname, String _password);
+        void register(Context _context, String _username, String _nickname, String _password);
 
         boolean isValid(String _username, String _nickname, String _password, String _password_confirm);
     }

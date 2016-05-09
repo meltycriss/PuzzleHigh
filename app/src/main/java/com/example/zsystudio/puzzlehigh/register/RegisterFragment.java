@@ -80,7 +80,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
                         password = mEtPassword.getText().toString(),
                         password_confirm = mEtPasswordComfirm.getText().toString();
                 if(mPresenter.isValid(username,nickname,password,password_confirm)){
-                    mPresenter.register(username,nickname,password);
+                    mPresenter.register(getContext(),username,nickname,password);
                 }
                 break;
             }

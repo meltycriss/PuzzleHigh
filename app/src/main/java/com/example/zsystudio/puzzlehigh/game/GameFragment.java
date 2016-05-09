@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.data.User;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,7 +59,8 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
      * output: total score
      */
     private int getTotalScore(){
-        return (int) (Math.random()*1000);
+        return User.getInstance().getGamePoint();
+        //return (int) (Math.random()*1000);
     }
 
     /*
@@ -69,6 +71,12 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     public void onGameOver() {
         GameStatus = PuzzleView.GAME_OVER;
         mPuzzleView.setGameStatus(PuzzleView.GAME_OVER);
+
+        //update user info
+        User.getInstance().update();
+        User.getInstance().setGamePoint(User.getInstance().getGamePoint() + getCurrScore());
+
+
         int currScore = getCurrScore();
         int totalScore = getTotalScore();
         FragmentManager fm = getActivity().getSupportFragmentManager();

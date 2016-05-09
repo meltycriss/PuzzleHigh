@@ -20,6 +20,15 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View mView;
 
+    public static void loginLocal(Context _context, String _username){
+        User.getInstance().setIsLogin(true);
+        User.getInstance().setUserName(_username);
+        User.getInstance().save(_context);
+        Intent intent = new Intent(_context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        _context.startActivity(intent);
+    }
+
     public void login(final Context _context, final String _username, final String _password) {
 
         // 调用的时候需要实现一个HttpCallback，才能在UI线程执行更新界面操作
@@ -30,18 +39,15 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
 
             @Override
-            public void onSuccess(Response response) throws IOException{
+            public void onSuccess(Response response) throws IOException {
 
                 // json解析没有封装，需要自性解析
                 LoginResponse lr = new Gson().fromJson(response.body().string(), LoginResponse.class);
 
                 if (lr.getSuccess() == 1) {
-                    User.getInstance().setIsLogin(true);
-                    User.getInstance().setUserName(_username);
-                    User.getInstance().save(_context);
                     mView.hidePrompt();
-                    mView.toastMsg(User.getInstance().getUserName());
-//                    _context.startActivity(new Intent(_context, MainActivity.class));
+                    LoginPresenter.loginLocal(_context,_username);
+//                    mView.toastMsg(User.getInstance().getUserName());
                 } else {
                     mView.showPrompt("fail to login");
                 }

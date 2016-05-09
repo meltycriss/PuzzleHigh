@@ -4,6 +4,7 @@ package com.example.zsystudio.puzzlehigh.game;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
+import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.select_image.SelectImageActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +78,8 @@ public class GameResultFragment extends DialogFragment implements DialogInterfac
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        Toast.makeText(getContext(),"OK",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),"OK",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), SelectImageActivity.class);
+        startActivity(intent);
     }
 }
