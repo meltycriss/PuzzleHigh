@@ -160,9 +160,15 @@ public class SelectImageFragment extends Fragment
 
 //            Toast.makeText(getContext(), netPicList.get(position).getText(), Toast.LENGTH_SHORT).show();
 
-            Uri uri = mPresenter.imageDownload(getContext(), netPicList.get(position));
-            Log.d("My_uri", uri.toString());
-            GameActivity.actionStart(getContext(), GameActivity.REMOTE, uri);
+            mPresenter.imageDownload(getContext(), netPicList.get(position), new SelectImagePresenter.DownloadCallback() {
+                @Override
+                public void onDownloadFinish(Uri uri) {
+
+                    Log.d("My_uri", uri.toString());
+                    GameActivity.actionStart(getContext(), GameActivity.REMOTE, uri);
+                }
+            });
+
 
         }
     }

@@ -2,6 +2,7 @@ package com.example.zsystudio.puzzlehigh.select_image;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,8 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -28,6 +31,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -203,16 +207,19 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
     }
 
     @Override
-    public Uri imageDownload(final Context context, final ImageItem imageItem) {
+    public void imageDownload(final Context context, final ImageItem imageItem, final DownloadCallback downloadCallback) {
 
-        String fileName = FILEPATH + imageItem.getText() + ".jpg";
-        Picasso.with(context).load(imageItem.getUrl()).into(getTarget(fileName));
-        
-        Uri uri = new Uri.Builder().path(fileName).build();
-        return uri;
+        String url = imageItem.getUrl();
+        String fileName = FILEPATH + url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf(".")) + ".jpg";
+        Picasso.with(context).load(imageItem.getUrl()).into(getTarget(fileName, downloadCallback));
+
     }
 
-    private Target getTarget(final String path) {
+    interface DownloadCallback{
+        void onDownloadFinish(Uri uri);
+    }
+
+    private Target getTarget(final String path, final DownloadCallback downloadCallback) {
 
         Target target = new Target() {
             @Override
@@ -223,11 +230,25 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
                     public void run() {
                         File file = new File(path);
                         try {
-                            file.createNewFile();
-                            FileOutputStream outputStream = new FileOutputStream(file);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                            outputStream.flush();
-                            outputStream.close();
+                            if (!file.exists()) {
+                                file.createNewFile();
+                                FileOutputStream outputStream = new FileOutputStream(file);
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                                outputStream.flush();
+                                outputStream.close();
+                            }
+
+//                            final Uri uri = Uri.fromFile(file);
+                            final Uri uri = new Uri.Builder().path(path).scheme(ContentResolver.SCHEME_FILE).build();
+
+                            // 通过MainLooper将回调post到UI线程执行
+                            Handler mainHandler = new Handler(Looper.getMainLooper());
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    downloadCallback.onDownloadFinish(uri);
+                                }
+                            });
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
