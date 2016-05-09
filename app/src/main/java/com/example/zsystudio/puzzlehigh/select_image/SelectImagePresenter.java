@@ -207,7 +207,7 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
 
         String fileName = FILEPATH + imageItem.getText() + ".jpg";
         Picasso.with(context).load(imageItem.getUrl()).into(getTarget(fileName));
-
+        
         Uri uri = new Uri.Builder().path(fileName).build();
         return uri;
     }
