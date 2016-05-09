@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,11 +144,14 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         mPuzzleView = new PuzzleView(getContext(),mDifficulty,mImageUri,GameFragment.this);
         ((FrameLayout) v).addView(mPuzzleView,0); //addView(View, layerIndex), layerIndex control which one is on top
 
+        int textSize = 33;
         mTvCountDown = new TextView(getContext());
-        mTvCountDown.setTextSize(33);
+        mTvCountDown.setTextSize(textSize);
         mTvCountDown.setText("" + countDownS + ":" + countDownMS);
-        FrameLayout.LayoutParams lpCountDown = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lpCountDown.setMargins(500, 130, 0, 0);
+        mTvCountDown.setBackgroundResource(R.drawable.time);
+        mTvCountDown.setGravity(Gravity.CENTER);
+        FrameLayout.LayoutParams lpCountDown = new FrameLayout.LayoutParams(mPuzzleView.getmTimeBgWidth(), mPuzzleView.getmTimeBgHeight());
+        lpCountDown.setMargins(mPuzzleView.getTimeBgOffsetX(), mPuzzleView.getTmerBgOffsetY(), 0, 0);
         ((FrameLayout) v).addView(mTvCountDown,1,lpCountDown);
         return v;
     }

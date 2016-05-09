@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
@@ -38,11 +39,19 @@ class PuzzleView extends View {
 
     private Bitmap a;
 
+    private int mTimeBgWidth;
+    private int mTimeBgHeight;
+    private int mTimeBgOffsetX;
+    private int mTimeBgOffsetY;
+
+    Bitmap mBgBorder = BitmapFactory.decodeResource(this.getResources(), R.drawable.text_border_large);
+    Paint mDashPaint;
+
     public interface GameOverCallBack {
         void onGameOver();
     }
 
-    public void setGameStatus(int _gameStatus){
+    public void setGameStatus(int _gameStatus) {
         mGameStatus = _gameStatus;
     }
 
@@ -51,8 +60,19 @@ class PuzzleView extends View {
         mPiece = _piece;
         mImageUri = _imageUri;
         mCallBack = _callBack;
-
+        mTimeBgWidth = (int) wwidth * 3 / 5;
+        mTimeBgHeight = (int) mTimeBgWidth / 3;
+        mTimeBgOffsetX = (int) (wwidth - mTimeBgWidth) / 2;
+        mTimeBgOffsetY = (int) (sy - mTimeBgHeight / 3 * 4);
         mGameStatus = GAME_ON;
+        mBgBorder = Bitmap.createScaledBitmap(mBgBorder, width, height, true);
+        mDashPaint = new Paint();
+        mDashPaint.setARGB(255, 116, 15, 112);
+//        mDashPaint.setColor(0x744170);
+        mDashPaint.setStyle(Paint.Style.STROKE);
+        mDashPaint.setPathEffect(new DashPathEffect(new float[]{30, 10}, 0));
+        mDashPaint.setStrokeWidth(10);
+
 
         a = IOUtil.getBitmapFromUri(getContext(), mImageUri);
         //a = BitmapFactory.decodeFile(mImageUri.getPath());
@@ -105,7 +125,7 @@ class PuzzleView extends View {
         background = BitmapFactory.decodeStream(bcakground2, null, opts);
         background = Bitmap.createScaledBitmap(background, (int) wwidth, (int) wheight, true);
         clockimg = Bitmap.createScaledBitmap(clockimg, (int) (wwidth / 5), (int) (wwidth / 5), true);
-        timebackground = Bitmap.createScaledBitmap(timebackground, (int) (wwidth / 5 * 2), (int) (wwidth / 5 / 2), true);
+        timebackground = Bitmap.createScaledBitmap(timebackground, mTimeBgWidth, mTimeBgHeight, true);
     }
 
     WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -136,10 +156,26 @@ class PuzzleView extends View {
     double ox = 0, nx = 0, oy = 0, ny = 0;
     int index2 = -1;
     int sx = (int) (wwidth - width) / 2;
-    int sy = (int) (wheight - height) / 3;
+    int sy = (int) (wheight - height) * 7 / 10;
     Paint paint = new Paint();
     Paint paint2 = new Paint();
     int count = 0;
+
+    public int getTimeBgOffsetX() {
+        return mTimeBgOffsetX;
+    }
+
+    public int getTmerBgOffsetY() {
+        return mTimeBgOffsetY;
+    }
+
+    public int getmTimeBgWidth() {
+        return mTimeBgWidth;
+    }
+
+    public int getmTimeBgHeight() {
+        return mTimeBgHeight;
+    }
 
     private Path createPiecePath(int min, int offX, int offY, PieceEdge eTop, PieceEdge eRight, PieceEdge eBottom, PieceEdge eLeft) {
         Path p = new Path();
@@ -218,9 +254,11 @@ class PuzzleView extends View {
     public void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(background, 0, 0, null);
-        canvas.drawBitmap(clockimg, (int) (wwidth / 5), sy - (int) (wwidth / 5) - 10, null);
-        canvas.drawBitmap(timebackground, (int) (wwidth / 5 * 2), sy - (int) (wwidth / 5 / 4 * 3) - 10, null);
+        //canvas.drawBitmap(clockimg, (int) (wwidth / 5), sy - (int) (wwidth / 5) - 10, null);
+        //canvas.drawBitmap(timebackground, mTimeBgOffsetX, mTimeBgOffsetY, null);
+        //canvas.drawBitmap(mBgBorder, sx, sy, null);
         canvas.drawPath(table, paint2);
+        canvas.drawRect(sx,sy,sx+width,sy+height,mDashPaint);
         for (int i = 0; i < list.size(); i++) {
             int t = list.get(i);
             canvas.translate(x[t], y[t]);
