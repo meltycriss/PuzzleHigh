@@ -39,7 +39,7 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
     private TextView mTvCountDown;
     private PuzzleView mPuzzleView;
 
-    int countDownS = 100; //total game time in second
+    int countDownS = 200; //total game time in second
     int countDownMS = 00; //total game time in microsecond
     int GameStatus = PuzzleView.GAME_ON;
 
@@ -150,5 +150,11 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         lpCountDown.setMargins(500, 130, 0, 0);
         ((FrameLayout) v).addView(mTvCountDown,1,lpCountDown);
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mTimer.cancel();
     }
 }

@@ -79,7 +79,8 @@ public class GameResultFragment extends DialogFragment implements DialogInterfac
     @Override
     public void onClick(DialogInterface dialog, int which) {
         //Toast.makeText(getContext(),"OK",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getContext(), SelectImageActivity.class);
-        startActivity(intent);
+/*        Intent intent = new Intent(getContext(), SelectImageActivity.class);
+        startActivity(intent);*/
+        getActivity().finish();
     }
 }
