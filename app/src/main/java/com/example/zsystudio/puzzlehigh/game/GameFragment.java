@@ -74,9 +74,8 @@ public class GameFragment extends Fragment implements PuzzleView.GameOverCallBac
         mPuzzleView.setGameStatus(PuzzleView.GAME_OVER);
 
         //update user info
-        User.getInstance().update();
         User.getInstance().setGamePoint(User.getInstance().getGamePoint() + getCurrScore());
-
+        User.getInstance().update();
 
         int currScore = getCurrScore();
         int totalScore = getTotalScore();

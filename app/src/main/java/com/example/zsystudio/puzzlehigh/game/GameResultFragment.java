@@ -73,6 +73,7 @@ public class GameResultFragment extends DialogFragment implements DialogInterfac
                 .setView(v)
                 .setTitle("游戏结果")
                 .setPositiveButton(android.R.string.ok,GameResultFragment.this)
+                .setCancelable(false)
                 .create();
     }
 

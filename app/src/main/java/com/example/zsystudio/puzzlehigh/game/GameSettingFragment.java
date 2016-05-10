@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,10 +39,13 @@ import okhttp3.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GameSettingFragment extends Fragment implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+public class GameSettingFragment extends Fragment implements RadioGroup.OnCheckedChangeListener, AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     public static final String TAG = "GameSettingFragment";
     public static final String EXTRA_IMAGE_URI = "GameSettingFragment.image_uri";
     public static final String EXTRA_SOURCE = "GameSettingFragment.source";
+
+    private int mDifficultyLowest = 2;
+    private int mDifficultyNum = 4;
 
     private int mSource; //where the image uri from, local or remote, deciding whether showing the uploading switch
     private Uri mImageUri; //image uri
@@ -47,6 +54,7 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
     private Switch mSwitchIsUpload;
     private ImageView mIvImage;
     private Button mBtnStart;
+    private RadioGroup mRgDifficulty;
 
     private int mDifficulty;
     private boolean mIsUpload;
@@ -74,13 +82,22 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_game_setting, container, false);
         //spinner for difficulty
-        mSpinnerDifficulty = (Spinner) v.findViewById(R.id.game_setting_difficulty);
+/*        mSpinnerDifficulty = (Spinner) v.findViewById(R.id.game_setting_difficulty);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.game_setting_difficulty_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinnerDifficulty.setAdapter(adapter);
         mSpinnerDifficulty.setOnItemSelectedListener(GameSettingFragment.this);
-        mSpinnerDifficulty.setSelection(adapter.getPosition(String.valueOf(mDifficulty)));
+        mSpinnerDifficulty.setSelection(adapter.getPosition(String.valueOf(mDifficulty)));*/
+
+        mRgDifficulty = (RadioGroup) v.findViewById(R.id.game_setting_difficulty);
+        for(int i=0; i<mDifficultyNum; ++i){
+            RadioButton rbTemp = new RadioButton(getContext());
+            rbTemp.setText(String.valueOf(i+mDifficultyLowest));
+            mRgDifficulty.addView(rbTemp);
+        }
+        ((RadioButton) mRgDifficulty.getChildAt(mDifficulty-mDifficultyLowest)).setChecked(true);
+        mRgDifficulty.setOnCheckedChangeListener(GameSettingFragment.this);
 
         //switch for upload
         mSwitchIsUpload = (Switch) v.findViewById(R.id.game_setting_is_upload);
@@ -169,5 +186,15 @@ public class GameSettingFragment extends Fragment implements AdapterView.OnItemS
                 Toast.makeText(getContext(), postPictureResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //RadioGroup control
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        for(int i=0; i<mDifficultyNum; ++i){
+            if(((RadioButton) group.getChildAt(i)).isChecked()){
+                mDifficulty = i+mDifficultyLowest;
+            }
+        }
     }
 }
