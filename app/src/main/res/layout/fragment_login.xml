@@ -1,32 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/login_username"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="用户名" />
+        android:background="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/login_password"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/user_editor_border"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="密码"
-        android:inputType="textPassword" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/login_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录" />
+        <ImageView
+            android:src="@drawable/image_username"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size" />
 
-    <Button
-        android:id="@+id/login_register"
+        <EditText
+            android:id="@+id/login_username"
+            android:layout_width="@dimen/user_editor_width"
+            android:layout_height="@dimen/user_editor_height"
+            android:background="@null"
+            android:hint="用户名" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注册" />
+        android:layout_gravity="center"
+        android:background="@drawable/user_editor_border"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/image_password"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="@dimen/user_editor_width"
+            android:layout_height="@dimen/user_editor_height"
+            android:hint="密码"
+            android:background="@null"
+            android:inputType="textPassword" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_editor_border"
+            android:layout_margin="10dp"
+            android:text="注册" />
+
+        <Button
+            android:id="@+id/login_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_editor_border"
+            android:layout_margin="10dp"
+            android:text="登录" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/login_prompt"

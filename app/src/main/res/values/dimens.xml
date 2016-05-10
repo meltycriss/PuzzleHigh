@@ -9,4 +9,9 @@
     <dimen name="cardview_radiu">30dp</dimen>
     <dimen name="cardview_margin_horizontal">5dp</dimen>
     <dimen name="cardview_shadow_size">3dp</dimen>
+
+    <dimen name="user_editor_radiu">10dp</dimen>
+    <dimen name="user_icon_size">50dp</dimen>
+    <dimen name="user_editor_height">50dp</dimen>
+    <dimen name="user_editor_width">150dp</dimen>
 </resources>
