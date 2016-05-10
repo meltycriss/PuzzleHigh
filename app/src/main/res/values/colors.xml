@@ -6,4 +6,5 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="background">#fffbee</color>
+    <color name="puzzle_purple">#744170</color>
 </resources>

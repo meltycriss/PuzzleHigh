@@ -81,7 +81,12 @@ public class SelectImageFragment extends Fragment
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.load_more) {
-            popupMenu.show();
+            if (loadmore.getText().equals("返回")) {
+                mRclist.swapAdapter(mNativeAdapter, false);
+                loadmore.setText("更多图片");
+            } else{
+                popupMenu.show();
+            }
         }
     }
 
@@ -117,7 +122,7 @@ public class SelectImageFragment extends Fragment
         mRclist.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                if (parent.getChildAdapterPosition(view) != 0)
+//                if (parent.getChildAdapterPosition(view) != 0)
                     outRect.top = 30;
             }
         });
@@ -139,10 +144,11 @@ public class SelectImageFragment extends Fragment
 
         netPicList = arrayList;
         mNetAdapter = new RecyclerAdapter(getContext(), arrayList);
-        mRclist.swapAdapter(mNetAdapter, true);
+        mRclist.swapAdapter(mNetAdapter, false);
         mNetAdapter.setOnItemClickListener(this);
         currentState = STATE_NET;
-        loadmore.setVisibility(View.GONE);
+//        loadmore.setVisibility(View.GONE);
+        loadmore.setText("返回");
     }
 
 

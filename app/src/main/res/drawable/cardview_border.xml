@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <size android:width="10dp"/>
+    <corners android:radius="@dimen/cardview_radiu"/>
+    <stroke android:color="@color/puzzle_purple" android:width="3dp" android:dashWidth="10dp" android:dashGap="5dp"/>
+</shape>

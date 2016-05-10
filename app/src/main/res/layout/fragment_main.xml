@@ -31,67 +31,67 @@
 
     <Button
         android:id="@+id/main_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/main_rank"
-        android:layout_alignStart="@+id/main_rank"
-        android:layout_centerVertical="true"
+        android:layout_width="@dimen/main_start_size"
+        android:layout_height="@dimen/main_start_size"
+        android:background="@drawable/main_btn"
         android:layout_gravity="center"
-        android:text="开始" />
+        android:text="开始"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/main_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/main_register"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:background="@drawable/main_btn"
         android:layout_gravity="center"
-        android:layout_toLeftOf="@+id/main_rank"
-        android:layout_toStartOf="@+id/main_rank"
-        android:text="登录" />
+        android:text="登录"
+        android:layout_below="@+id/main_start"
+        android:layout_toRightOf="@+id/main_logout"
+        android:layout_toEndOf="@+id/main_logout" />
 
     <Button
         android:id="@+id/main_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/main_rank"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:background="@drawable/main_btn"
         android:layout_gravity="center"
-        android:layout_marginBottom="69dp"
-        android:layout_toEndOf="@+id/main_rank"
+        android:text="注册"
+        android:layout_below="@+id/main_start"
         android:layout_toRightOf="@+id/main_rank"
-        android:text="注册" />
+        android:layout_toEndOf="@+id/main_rank" />
 
     <Button
         android:id="@+id/main_rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/main_setting"
-        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:background="@drawable/main_btn"
         android:layout_gravity="center"
-        android:text="排名" />
+        android:text="排名"
+        android:layout_alignTop="@+id/main_setting"
+        android:layout_alignLeft="@+id/main_start"
+        android:layout_alignStart="@+id/main_start" />
 
     <Button
         android:id="@+id/main_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/main_about"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:background="@drawable/main_btn"
         android:layout_gravity="center"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp"
-        android:text="设置" />
+        android:text="设置"
+        android:layout_alignTop="@+id/main_about"
+        android:layout_alignRight="@+id/main_username"
+        android:layout_alignEnd="@+id/main_username" />
 
     <Button
         android:id="@+id/main_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:background="@drawable/main_btn"
         android:layout_gravity="center"
-        android:layout_marginBottom="69dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:text="关于" />
+        android:text="关于"
+        android:layout_below="@+id/main_register"
+        android:layout_toRightOf="@+id/main_start"
+        android:layout_toEndOf="@+id/main_start" />
 
 </RelativeLayout>

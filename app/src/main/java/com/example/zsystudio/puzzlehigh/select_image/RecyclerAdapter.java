@@ -32,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
         // LinearLayout
-        width = wm.getDefaultDisplay().getWidth() * 95 / 100;
+        width = wm.getDefaultDisplay().getWidth() * 99 / 100;
 
         // StaggeredGridLayout
 //        width = wm.getDefaultDisplay().getWidth() * 98 / 100 / 2;
