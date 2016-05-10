@@ -2,5 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
     <size android:width="10dp"/>
     <corners android:radius="@dimen/user_editor_radiu"/>
+    <padding android:left="10dp" android:right="10dp" android:top="0dp" android:bottom="0dp"/>
     <stroke android:color="@color/puzzle_grey" android:width="3dp" android:dashWidth="10dp" android:dashGap="5dp"/>
 </shape>
