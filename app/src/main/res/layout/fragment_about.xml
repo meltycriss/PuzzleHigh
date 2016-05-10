@@ -3,16 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.example.zsystudio.puzzlehigh.about.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="关于" />
-    <ImageView
+        android:textSize="25sp"
+        android:text="关于"
+        android:textColor="@color/puzzle_purple"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:background="@drawable/editor_border"
+        android:layout_width="320dp"
+        android:layout_height="480dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
