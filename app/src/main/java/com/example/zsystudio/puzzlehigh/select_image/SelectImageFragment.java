@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -84,7 +85,7 @@ public class SelectImageFragment extends Fragment
             if (loadmore.getText().equals("返回")) {
                 mRclist.swapAdapter(mNativeAdapter, false);
                 loadmore.setText("更多图片");
-            } else{
+            } else {
                 popupMenu.show();
             }
         }
@@ -113,8 +114,8 @@ public class SelectImageFragment extends Fragment
     @Override
     public void showNativePicList() {
 
-        mLayoutManager = new LinearLayoutManager(getContext());
-//        mLayoutManager = new GridLayoutManager(this, 2);
+//        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRclist.setLayoutManager(mLayoutManager);
         mRclist.setHasFixedSize(true);
 
@@ -122,8 +123,15 @@ public class SelectImageFragment extends Fragment
         mRclist.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-//                if (parent.getChildAdapterPosition(view) != 0)
-                    outRect.top = 30;
+                if (parent.getChildAdapterPosition(view) % 2 == 0) {
+                    outRect.left = 50;
+                    outRect.right = 10;
+                } else {
+                    outRect.right = 30;
+                    outRect.left = 10;
+                }
+                if (!(parent.getChildAdapterPosition(view) == 0 || parent.getChildAdapterPosition(view) == 1))
+                    outRect.top = 20;
             }
         });
 

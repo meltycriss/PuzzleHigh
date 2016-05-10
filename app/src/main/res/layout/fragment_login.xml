@@ -5,77 +5,79 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:background="@drawable/logo" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center"
-        android:background="@drawable/editor_border"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/editor_border"
+        android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/image_username"
             android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size" />
+            android:layout_height="@dimen/user_icon_size"
+            android:src="@drawable/image_username" />
 
         <EditText
             android:id="@+id/login_username"
             android:layout_width="@dimen/user_editor_width"
             android:layout_height="@dimen/user_editor_height"
+            android:layout_marginLeft="10dp"
             android:background="@null"
             android:hint="用户名" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:background="@drawable/editor_border"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
 
         <ImageView
-            android:src="@drawable/image_password"
             android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size" />
+            android:layout_height="@dimen/user_icon_size"
+            android:src="@drawable/image_password" />
 
         <EditText
             android:id="@+id/login_password"
             android:layout_width="@dimen/user_editor_width"
             android:layout_height="@dimen/user_editor_height"
-            android:hint="密码"
+            android:layout_marginLeft="10dp"
             android:background="@null"
+            android:hint="密码"
             android:inputType="textPassword" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/login_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/editor_border"
             android:layout_margin="10dp"
+            android:background="@drawable/editor_border"
             android:text="注册" />
 
         <Button
             android:id="@+id/login_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/editor_border"
             android:layout_margin="10dp"
+            android:background="@drawable/editor_border"
             android:text="登录" />
 
     </LinearLayout>

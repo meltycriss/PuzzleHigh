@@ -32,10 +32,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
         // LinearLayout
-        width = wm.getDefaultDisplay().getWidth() * 99 / 100;
+//        width = wm.getDefaultDisplay().getWidth() * 99 / 100;
 
         // StaggeredGridLayout
-//        width = wm.getDefaultDisplay().getWidth() * 98 / 100 / 2;
+//        width = wm.getDefaultDisplay().getWidth() * 85 / 100 / 2;
+
+        // test
+        width = wm.getDefaultDisplay().getWidth();
     }
 
     public OnItemClickListener itemClickListener;
@@ -102,9 +105,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         // 建立起ViewHolder中视图与数据的关联
 //        viewHolder.imageView.setImageResource(R.drawable.pic1 + position);
         if (null != mData.get(position).getUrl())
-            Picasso.with(context).load(mData.get(position).getUrl()).transform(new MyTransform()).into(viewHolder.imageView);
+            Picasso.with(context).load(mData.get(position).getUrl()).into(viewHolder.imageView);
         else
-            Picasso.with(context).load(mData.get(position).getId()).transform(new MyTransform()).into(viewHolder.imageView);
+            Picasso.with(context).load(mData.get(position).getId()).into(viewHolder.imageView);
 //            Picasso.with(context).load(R.drawable.pic1 + position).into(viewHolder.imageView);
     }
 

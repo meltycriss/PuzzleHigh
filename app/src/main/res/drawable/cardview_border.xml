@@ -2,5 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
     <size android:width="10dp"/>
     <corners android:radius="@dimen/cardview_radiu"/>
-    <stroke android:color="@color/puzzle_purple" android:width="3dp" android:dashWidth="10dp" android:dashGap="5dp"/>
+    <padding android:bottom="3dp" android:top="3dp" android:left="3dp" android:right="3dp"/>
+    <stroke android:color="@color/puzzle_grey" android:width="3dp" android:dashWidth="10dp" android:dashGap="5dp"/>
 </shape>

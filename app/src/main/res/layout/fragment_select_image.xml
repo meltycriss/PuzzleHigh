@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <TextView
+        android:textSize="25sp"
+        android:text="拼图选择"
+        android:textColor="@color/puzzle_purple"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rc_list"
@@ -14,9 +24,12 @@
     <Button
         android:id="@+id/load_more"
         android:background="@drawable/editor_border"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
         android:text="更多图片"
-        android:textSize="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:textSize="15sp"
+        android:textColor="@color/puzzle_purple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

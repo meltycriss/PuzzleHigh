@@ -21,6 +21,7 @@
             android:layout_width="@dimen/register_text_width"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/puzzle_purple"
             android:text="用户名"
             android:textSize="20sp" />
 
@@ -44,6 +45,7 @@
             android:layout_width="@dimen/register_text_width"
             android:layout_height="wrap_content"
             android:text="昵称"
+            android:textColor="@color/puzzle_purple"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -67,6 +69,7 @@
             android:layout_width="@dimen/register_text_width"
             android:layout_height="wrap_content"
             android:text="密码"
+            android:textColor="@color/puzzle_purple"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -90,6 +93,7 @@
             android:layout_width="@dimen/register_text_width"
             android:layout_height="wrap_content"
             android:text="确认密码"
+            android:textColor="@color/puzzle_purple"
             android:gravity="center"
             android:textSize="20sp" />
 
@@ -109,6 +113,7 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:background="@drawable/editor_border"
+        android:textColor="@color/puzzle_purple"
         android:text="注册" />
 
     <TextView
