@@ -21,15 +21,57 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <Button
-        android:id="@+id/load_more"
-        android:background="@drawable/editor_border"
+    <LinearLayout
+        android:id="@+id/layout_load_more"
+        android:orientation="horizontal"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="15dp"
-        android:text="更多图片"
-        android:textSize="15sp"
-        android:textColor="@color/puzzle_purple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_load_local_pic"
+            android:background="@drawable/editor_border"
+            android:text="本地图片"
+            android:textSize="15sp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/puzzle_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_load_net_pic"
+            android:background="@drawable/editor_border"
+            android:text="网络图片"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/puzzle_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_go_back"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_go_back"
+            android:background="@drawable/editor_border"
+            android:text="返回"
+            android:textSize="15sp"
+            android:textColor="@color/puzzle_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

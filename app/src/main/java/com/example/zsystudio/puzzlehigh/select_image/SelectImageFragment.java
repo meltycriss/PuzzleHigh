@@ -7,15 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.game.GameActivity;
@@ -39,8 +37,11 @@ public class SelectImageFragment extends Fragment
     private List<ImageItem> nativePicList = new ArrayList<ImageItem>();
     private List<ImageItem> netPicList = new ArrayList<ImageItem>();
 
-    private Button loadmore;
-    private PopupMenu popupMenu;
+    private LinearLayout mLayoutLoadMore;
+    private LinearLayout mLayoutGoBack;
+    private Button mBtnLoadLocalPic;
+    private Button mBtnLoadNetPIc;
+    private Button mBtnGoBack;
 
 
     private static int STATE_NATIVE = 100;
@@ -71,8 +72,15 @@ public class SelectImageFragment extends Fragment
 
         mRclist = (RecyclerView) v.findViewById(R.id.rc_list);
 
-        loadmore = (Button) v.findViewById(R.id.load_more);
-        loadmore.setOnClickListener(this);
+        mLayoutLoadMore = (LinearLayout) v.findViewById(R.id.layout_load_more);
+        mLayoutGoBack = (LinearLayout) v.findViewById(R.id.layout_go_back);
+
+        mBtnLoadNetPIc = (Button) v.findViewById(R.id.btn_load_net_pic);
+        mBtnLoadLocalPic = (Button) v.findViewById(R.id.btn_load_local_pic);
+        mBtnGoBack = (Button) v.findViewById(R.id.btn_go_back);
+        mBtnGoBack.setOnClickListener(this);
+        mBtnLoadLocalPic.setOnClickListener(this);
+        mBtnLoadNetPIc.setOnClickListener(this);
 
         mPresenter.start();
 
@@ -81,34 +89,17 @@ public class SelectImageFragment extends Fragment
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.load_more) {
-            if (loadmore.getText().equals("返回")) {
-                mRclist.swapAdapter(mNativeAdapter, false);
-                loadmore.setText("更多图片");
-            } else {
-                popupMenu.show();
-            }
+        int id = v.getId();
+        if (id == R.id.btn_go_back) {
+            currentState = STATE_NATIVE;
+            mRclist.swapAdapter(mNativeAdapter, false);
+            mLayoutLoadMore.setVisibility(View.VISIBLE);
+            mLayoutGoBack.setVisibility(View.GONE);
+        } else if (id == R.id.btn_load_net_pic) {
+            mPresenter.getNetPicList();
+        } else if (id == R.id.btn_load_local_pic) {
+            mPresenter.getLocalPic();
         }
-    }
-
-    @Override
-    public void createPopupMenu() {
-
-        popupMenu = new PopupMenu(getActivity(), loadmore);
-        popupMenu.getMenuInflater().inflate(R.menu.loadmore_pic, popupMenu.getMenu());
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.native_pic) {
-                    mPresenter.getLocalPic();
-                } else {
-                    mPresenter.getNetPicList();
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -143,8 +134,11 @@ public class SelectImageFragment extends Fragment
         mNativeAdapter = new RecyclerAdapter(getContext(), nativePicList);
         mRclist.setAdapter(mNativeAdapter);
         mNativeAdapter.setOnItemClickListener(this);
+
         currentState = STATE_NATIVE;
-        loadmore.setVisibility(View.VISIBLE);
+
+        mLayoutLoadMore.setVisibility(View.VISIBLE);
+        mLayoutGoBack.setVisibility(View.GONE);
     }
 
     @Override
@@ -154,9 +148,11 @@ public class SelectImageFragment extends Fragment
         mNetAdapter = new RecyclerAdapter(getContext(), arrayList);
         mRclist.swapAdapter(mNetAdapter, false);
         mNetAdapter.setOnItemClickListener(this);
+
         currentState = STATE_NET;
-//        loadmore.setVisibility(View.GONE);
-        loadmore.setText("返回");
+
+        mLayoutLoadMore.setVisibility(View.GONE);
+        mLayoutGoBack.setVisibility(View.VISIBLE);
     }
 
 

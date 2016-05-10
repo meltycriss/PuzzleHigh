@@ -71,7 +71,6 @@ public class SelectImagePresenter implements SelectImageContract.Presenter {
     @Override
     public void start() {
         mView.showNativePicList();
-        mView.createPopupMenu();
         this.createMyDir();
     }
 

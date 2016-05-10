@@ -30,8 +30,6 @@ public interface SelectImageContract {
 
     interface View extends BaseView{
 
-        void createPopupMenu();
-
         void showNativePicList();
 
         void showNetPicList(ArrayList<ImageItem> arrayList);
