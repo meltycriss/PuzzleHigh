@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="80dp"
         android:layout_gravity="center"
-        android:background="@drawable/user_editor_border"
+        android:background="@drawable/editor_border"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -37,7 +37,7 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/user_editor_border"
+        android:background="@drawable/editor_border"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -66,7 +66,7 @@
             android:id="@+id/login_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/user_editor_border"
+            android:background="@drawable/editor_border"
             android:layout_margin="10dp"
             android:text="注册" />
 
@@ -74,7 +74,7 @@
             android:id="@+id/login_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/user_editor_border"
+            android:background="@drawable/editor_border"
             android:layout_margin="10dp"
             android:text="登录" />
 

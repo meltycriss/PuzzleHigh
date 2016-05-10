@@ -13,7 +13,7 @@
 
     <Button
         android:id="@+id/load_more"
-        android:background="@drawable/text_border_long"
+        android:background="@drawable/editor_border"
         android:text="更多图片"
         android:textSize="30sp"
         android:layout_width="match_parent"
