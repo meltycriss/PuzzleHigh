@@ -37,7 +37,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE); //设置无标题
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+                .setDefaultFontPath("fonts/ypxtt.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
