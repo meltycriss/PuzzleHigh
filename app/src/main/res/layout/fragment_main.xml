@@ -1,11 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.zsystudio.puzzlehigh.main.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:id="@+id/user_info"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        android:layout_gravity="right">
+
+        <TextView
+            android:textColor="@color/puzzle_purple"
+            android:textSize="20sp"
+            android:text="Dear  "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/main_username"
+            android:textSize="20sp"
+            android:textColor="@color/puzzle_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test" />
+
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -13,85 +39,81 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/logo" />
 
-    <Button
-        android:id="@+id/main_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注销"/>
-
-    <TextView
-        android:id="@+id/main_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/main_logout"
-        android:text="test"/>
 
     <Button
         android:id="@+id/main_start"
         android:layout_width="@dimen/main_start_size"
         android:layout_height="@dimen/main_start_size"
-        android:background="@drawable/main_btn"
         android:layout_gravity="center"
+        android:background="@drawable/main_btn"
         android:text="开始"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:textSize="50sp" />
 
     <Button
         android:id="@+id/main_login"
         android:layout_width="@dimen/main_other_size"
         android:layout_height="@dimen/main_other_size"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="420dp"
         android:background="@drawable/main_btn"
-        android:layout_gravity="center"
-        android:text="登录"
-        android:layout_below="@+id/main_start"
-        android:layout_toRightOf="@+id/main_logout"
-        android:layout_toEndOf="@+id/main_logout" />
+        android:translationZ="1px"
+        android:text="登录" />
 
     <Button
-        android:id="@+id/main_register"
+        android:id="@+id/main_logout"
         android:layout_width="@dimen/main_other_size"
         android:layout_height="@dimen/main_other_size"
+        android:layout_marginTop="420dp"
+        android:layout_marginLeft="50dp"
         android:background="@drawable/main_btn"
-        android:layout_gravity="center"
-        android:text="注册"
-        android:layout_below="@+id/main_start"
-        android:layout_toRightOf="@+id/main_rank"
-        android:layout_toEndOf="@+id/main_rank" />
+        android:text="注销" />
+
 
     <Button
         android:id="@+id/main_rank"
         android:layout_width="@dimen/main_other_size"
         android:layout_height="@dimen/main_other_size"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="420dp"
         android:background="@drawable/main_btn"
-        android:layout_gravity="center"
-        android:text="排名"
-        android:layout_alignTop="@+id/main_setting"
-        android:layout_alignLeft="@+id/main_start"
-        android:layout_alignStart="@+id/main_start" />
+        android:text="排行" />
 
-    <Button
-        android:id="@+id/main_setting"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:background="@drawable/main_btn"
-        android:layout_gravity="center"
-        android:text="设置"
-        android:layout_alignTop="@+id/main_about"
-        android:layout_alignRight="@+id/main_username"
-        android:layout_alignEnd="@+id/main_username" />
 
     <Button
         android:id="@+id/main_about"
         android:layout_width="@dimen/main_other_size"
         android:layout_height="@dimen/main_other_size"
+        android:layout_marginTop="420dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="50dp"
         android:background="@drawable/main_btn"
-        android:layout_gravity="center"
-        android:text="关于"
-        android:layout_below="@+id/main_register"
-        android:layout_toRightOf="@+id/main_start"
-        android:layout_toEndOf="@+id/main_start" />
+        android:text="关于" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/main_register"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:layout_alignLeft="@+id/main_start"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="420dp"
+        android:background="@drawable/main_btn"
+        android:text="注册"
+        android:visibility="gone" />
+
+
+    <Button
+        android:id="@+id/main_setting"
+        android:layout_width="@dimen/main_other_size"
+        android:layout_height="@dimen/main_other_size"
+        android:layout_alignRight="@+id/main_start"
+        android:background="@drawable/main_btn"
+        android:text="设置"
+        android:visibility="gone" />
+
+
+</FrameLayout>

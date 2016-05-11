@@ -23,7 +23,7 @@ public class RankPresenter implements RankContract.Presenter{
 
     @Override
     public void getRank() {
-        mView.toastMsg("success");
+//        mView.toastMsg("success");
 
         OKHttpUtil.getRank(User.getInstance().getGamePoint(), new OKHttpUtil.HttpCallback() {
             @Override
@@ -41,9 +41,9 @@ public class RankPresenter implements RankContract.Presenter{
                     mView.showInfoOfRank(RankFragment.RANK_FIRST,rr.getTopthree().get(0).getTopUsername(),rr.getTopthree().get(0).getTopScore());
                     mView.showInfoOfRank(RankFragment.RANK_SECOND,rr.getTopthree().get(1).getTopUsername(),rr.getTopthree().get(1).getTopScore());
                     mView.showInfoOfRank(RankFragment.RANK_THIRD,rr.getTopthree().get(2).getTopUsername(),rr.getTopthree().get(2).getTopScore());
-                    mView.toastMsg("success");
+//                    mView.toastMsg("success");
                 } else {
-                    mView.toastMsg("fail to login");
+//                    mView.toastMsg("fail to login");
                 }
             }
         });

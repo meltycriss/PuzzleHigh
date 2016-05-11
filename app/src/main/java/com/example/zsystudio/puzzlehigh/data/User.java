@@ -96,6 +96,8 @@ public class User {
 
     public void update(){
 
+        if (!isLogin)
+            return;
         OKHttpUtil.postScore(userName, gamePoint, new OKHttpUtil.HttpCallback() {
             @Override
             public void onFailure(Response response, Throwable throwable) {

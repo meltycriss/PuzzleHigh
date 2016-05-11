@@ -43,7 +43,7 @@ public class RegisterPresenter implements RegisterContract.Presenter{
                 if(rr.getSuccess() == 1){
                     mView.hidePrompt();
                     //mView.toastMsg("success");
-                    LoginPresenter.loginLocal(_context,_username);
+                    LoginPresenter.loginLocal(_context,_username, 0);
                 }
                 else{
                     mView.showPrompt("fail to register");

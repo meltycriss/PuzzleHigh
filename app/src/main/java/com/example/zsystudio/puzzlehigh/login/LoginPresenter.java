@@ -20,9 +20,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View mView;
 
-    public static void loginLocal(Context _context, String _username){
+    public static void loginLocal(Context _context, String _username, int _score){
         User.getInstance().setIsLogin(true);
         User.getInstance().setUserName(_username);
+        User.getInstance().setGamePoint(_score);
         User.getInstance().save(_context);
         Intent intent = new Intent(_context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -46,10 +47,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                 if (lr.getSuccess() == 1) {
                     mView.hidePrompt();
-                    LoginPresenter.loginLocal(_context,_username);
+                    LoginPresenter.loginLocal(_context,_username, lr.getScore());
 //                    mView.toastMsg(User.getInstance().getUserName());
                 } else {
-                    mView.showPrompt("fail to login");
+                    mView.showPrompt(lr.getMessage());
                 }
             }
         });

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.zsystudio.puzzlehigh.R;
@@ -28,6 +29,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "MainFragment";
 
     private Button mBtnStart, mBtnLogin, mBtnRegister, mBtnRank, mBtnSetting, mBtnAbout, mBtnLogout;
+    private LinearLayout mLayoutUserInfo;
     private TextView mTvUsername;
 
     public static MainFragment newInstance() {
@@ -55,20 +57,22 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mBtnAbout = (Button) v.findViewById(R.id.main_about);
         mTvUsername = (TextView) v.findViewById(R.id.main_username);
         mBtnLogout = (Button) v.findViewById(R.id.main_logout);
+        mLayoutUserInfo = (LinearLayout) v.findViewById(R.id.user_info);
         if (User.getInstance().isLogin()) {
-            mBtnLogin.setVisibility(View.INVISIBLE);
-            mBtnRegister.setVisibility((View.INVISIBLE));
+            mBtnLogin.setVisibility(View.GONE);
+            mBtnRegister.setVisibility((View.GONE));
             mTvUsername.setVisibility(View.VISIBLE);
             mTvUsername.setText(User.getInstance().getUserName());
             mBtnLogout.setVisibility(View.VISIBLE);
             mBtnLogout.setOnClickListener(MainFragment.this);
+            mLayoutUserInfo.setVisibility(View.VISIBLE);
         }
         else{
             mBtnLogin.setVisibility(View.VISIBLE);
-            mBtnRegister.setVisibility((View.VISIBLE));
+            mBtnRegister.setVisibility((View.GONE));
             mTvUsername.setVisibility(View.INVISIBLE);
-            mBtnLogout.setVisibility(View.INVISIBLE);
-
+            mBtnLogout.setVisibility(View.GONE);
+            mLayoutUserInfo.setVisibility(View.GONE);
         }
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);
