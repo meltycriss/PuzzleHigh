@@ -1,5 +1,6 @@
 package com.example.zsystudio.puzzlehigh.util;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,6 +22,9 @@ import com.example.zsystudio.puzzlehigh.R;
 
 import java.io.FileInputStream;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     private View mDecorView;
@@ -31,6 +35,12 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE); //设置无标题
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -46,6 +56,11 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
             fragment = createFragment();
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     // This snippet hides the system bars.
