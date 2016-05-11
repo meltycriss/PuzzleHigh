@@ -32,17 +32,6 @@
 
     </LinearLayout>
 
-<!--    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/logo" />-->
     <TextView
         android:id="@+id/main_logo"
         android:layout_width="wrap_content"
@@ -53,30 +42,36 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="60dp"
-        android:textSize="50sp"
-        android:textColor="@color/puzzle_purple"
         android:text="PUZZLE HIGH"
-        />
-
-
-    <Button
-        android:id="@+id/main_start"
-        android:layout_width="@dimen/main_start_size"
-        android:layout_height="@dimen/main_start_size"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="@drawable/main_btn"
-        android:layout_marginTop="10dp"
-        android:text="开始"
         android:textColor="@color/puzzle_purple"
         android:textSize="50sp" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/main_start"
+            android:layout_width="@dimen/main_start_size"
+            android:layout_height="@dimen/main_start_size"
+            android:layout_gravity="center"
+            android:background="@drawable/main_btn"
+            android:text="开始"
+            android:textColor="@color/puzzle_purple"
+            android:textSize="50sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
@@ -86,6 +81,7 @@
             android:layout_margin="50dp"
             android:background="@drawable/main_btn"
             android:text="登录"
+            android:textColor="@color/puzzle_purple"
             android:translationZ="1px" />
 
         <Button
@@ -94,7 +90,8 @@
             android:layout_height="@dimen/main_other_size"
             android:layout_margin="50dp"
             android:background="@drawable/main_btn"
-            android:text="注销" />
+            android:text="注销"
+            android:textColor="@color/puzzle_purple" />
 
 
         <Button
@@ -102,7 +99,8 @@
             android:layout_width="@dimen/main_other_size"
             android:layout_height="@dimen/main_other_size"
             android:background="@drawable/main_btn"
-            android:text="排行" />
+            android:text="排行"
+            android:textColor="@color/puzzle_purple" />
 
 
         <Button
@@ -111,7 +109,8 @@
             android:layout_height="@dimen/main_other_size"
             android:layout_margin="50dp"
             android:background="@drawable/main_btn"
-            android:text="关于" />
+            android:text="关于"
+            android:textColor="@color/puzzle_purple" />
 
         <Button
             android:id="@+id/main_register"
@@ -121,6 +120,7 @@
             android:layout_marginLeft="50dp"
             android:background="@drawable/main_btn"
             android:text="注册"
+            android:textColor="@color/puzzle_purple"
             android:visibility="gone" />
 
         <Button
@@ -130,6 +130,7 @@
             android:layout_alignRight="@+id/main_start"
             android:background="@drawable/main_btn"
             android:text="设置"
+            android:textColor="@color/puzzle_purple"
             android:visibility="gone" />
 
     </LinearLayout>
