@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,27 +8,27 @@
 
     <LinearLayout
         android:id="@+id/user_info"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:layout_margin="10dp"
-        android:visibility="gone"
-        android:layout_gravity="right">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
-            android:textColor="@color/puzzle_purple"
-            android:textSize="20sp"
-            android:text="Dear  "
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Dear  "
+            android:textColor="@color/puzzle_purple"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/main_username"
-            android:textSize="20sp"
-            android:textColor="@color/puzzle_purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test" />
+            android:text="test"
+            android:textColor="@color/puzzle_purple"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -50,70 +50,74 @@
         android:layout_width="@dimen/main_start_size"
         android:layout_height="@dimen/main_start_size"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:background="@drawable/main_btn"
+        android:layout_marginTop="10dp"
         android:text="开始"
         android:textSize="50sp" />
 
-    <Button
-        android:id="@+id/main_login"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="420dp"
-        android:background="@drawable/main_btn"
-        android:translationZ="1px"
-        android:text="登录" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/main_logout"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:layout_marginTop="420dp"
-        android:layout_marginLeft="50dp"
-        android:background="@drawable/main_btn"
-        android:text="注销" />
+        <Button
+            android:id="@+id/main_login"
+            android:layout_width="@dimen/main_other_size"
+            android:layout_height="@dimen/main_other_size"
+            android:layout_margin="50dp"
+            android:background="@drawable/main_btn"
+            android:text="登录"
+            android:translationZ="1px" />
 
-
-    <Button
-        android:id="@+id/main_rank"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="420dp"
-        android:background="@drawable/main_btn"
-        android:text="排行" />
+        <Button
+            android:id="@+id/main_logout"
+            android:layout_width="@dimen/main_other_size"
+            android:layout_height="@dimen/main_other_size"
+            android:layout_margin="50dp"
+            android:background="@drawable/main_btn"
+            android:text="注销" />
 
 
-    <Button
-        android:id="@+id/main_about"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:layout_marginTop="420dp"
-        android:layout_gravity="end"
-        android:layout_marginRight="50dp"
-        android:background="@drawable/main_btn"
-        android:text="关于" />
-
-    <Button
-        android:id="@+id/main_register"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:layout_alignLeft="@+id/main_start"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="420dp"
-        android:background="@drawable/main_btn"
-        android:text="注册"
-        android:visibility="gone" />
+        <Button
+            android:id="@+id/main_rank"
+            android:layout_width="@dimen/main_other_size"
+            android:layout_height="@dimen/main_other_size"
+            android:background="@drawable/main_btn"
+            android:text="排行" />
 
 
-    <Button
-        android:id="@+id/main_setting"
-        android:layout_width="@dimen/main_other_size"
-        android:layout_height="@dimen/main_other_size"
-        android:layout_alignRight="@+id/main_start"
-        android:background="@drawable/main_btn"
-        android:text="设置"
-        android:visibility="gone" />
+        <Button
+            android:id="@+id/main_about"
+            android:layout_width="@dimen/main_other_size"
+            android:layout_height="@dimen/main_other_size"
+            android:layout_margin="50dp"
+            android:background="@drawable/main_btn"
+            android:text="关于" />
+
+        <Button
+            android:id="@+id/main_register"
+            android:layout_width="@dimen/main_other_size"
+            android:layout_height="@dimen/main_other_size"
+            android:layout_alignLeft="@+id/main_start"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/main_btn"
+            android:text="注册"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/main_setting"
+            android:layout_width="@dimen/main_other_size"
+            android:layout_height="@dimen/main_other_size"
+            android:layout_alignRight="@+id/main_start"
+            android:background="@drawable/main_btn"
+            android:text="设置"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 
-</FrameLayout>
+</LinearLayout>
