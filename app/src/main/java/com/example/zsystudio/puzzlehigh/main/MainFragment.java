@@ -78,7 +78,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mBtnRegister.setVisibility((View.GONE));
             mTvUsername.setVisibility(View.INVISIBLE);
             mBtnLogout.setVisibility(View.GONE);
-            mLayoutUserInfo.setVisibility(View.GONE);
+            mLayoutUserInfo.setVisibility(View.INVISIBLE);
         }
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);

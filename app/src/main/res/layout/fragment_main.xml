@@ -13,7 +13,7 @@
         android:layout_gravity="right"
         android:layout_margin="10dp"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="invisible">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,11 +49,10 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/main_start"
@@ -69,16 +68,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/main_login"
             android:layout_width="@dimen/main_other_size"
             android:layout_height="@dimen/main_other_size"
-            android:layout_margin="50dp"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/main_btn"
             android:text="登录"
             android:textColor="@color/puzzle_purple"
@@ -88,7 +87,7 @@
             android:id="@+id/main_logout"
             android:layout_width="@dimen/main_other_size"
             android:layout_height="@dimen/main_other_size"
-            android:layout_margin="50dp"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/main_btn"
             android:text="注销"
             android:textColor="@color/puzzle_purple" />
@@ -99,6 +98,9 @@
             android:layout_width="@dimen/main_other_size"
             android:layout_height="@dimen/main_other_size"
             android:background="@drawable/main_btn"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:text="排行"
             android:textColor="@color/puzzle_purple" />
 
@@ -107,7 +109,7 @@
             android:id="@+id/main_about"
             android:layout_width="@dimen/main_other_size"
             android:layout_height="@dimen/main_other_size"
-            android:layout_margin="50dp"
+            android:layout_marginRight="50dp"
             android:background="@drawable/main_btn"
             android:text="关于"
             android:textColor="@color/puzzle_purple" />
