@@ -1,6 +1,7 @@
 package com.example.zsystudio.puzzlehigh.rank;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.data.User;
+import com.example.zsystudio.puzzlehigh.util.TypefaceUtil;
 
 import org.w3c.dom.Text;
 
@@ -84,6 +86,11 @@ public class RankFragment extends Fragment implements RankContract.View{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_rank, container, false);
+
+        //TypefaceUtil.overrideFont(getContext().getApplicationContext(), "SERIF", "fonts/miao.ttf");
+        //TypefaceUtil.overrideFont(getContext().getApplicationContext(), "Criss", "fonts/miao.ttf");
+        //Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/miao.ttf");//根据路径得到Typeface
+
         mTvUserName = (TextView) v.findViewById(R.id.rank_user_name);
         mTvFirstName = (TextView) v.findViewById(R.id.rank_first_name);
         mTvSecondName = (TextView) v.findViewById(R.id.rank_second_name);

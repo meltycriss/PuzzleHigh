@@ -2,6 +2,7 @@ package com.example.zsystudio.puzzlehigh.main;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -49,6 +50,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/miao.ttf");//根据路径得到Typeface
         mBtnStart = (Button) v.findViewById(R.id.main_start);
         mBtnLogin = (Button) v.findViewById(R.id.main_login);
         mBtnRegister = (Button) v.findViewById(R.id.main_register);
@@ -74,6 +76,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mBtnLogout.setVisibility(View.GONE);
             mLayoutUserInfo.setVisibility(View.GONE);
         }
+        mBtnStart.setTypeface(tf);
+        mBtnSetting.setTypeface(tf);
+        mBtnLogin.setTypeface(tf);
+        mBtnRegister.setTypeface(tf);
+        mBtnLogout.setTypeface(tf);
+        mBtnRank.setTypeface(tf);
+        mBtnAbout.setTypeface(tf);
+
         mBtnLogin.setOnClickListener(MainFragment.this);
         mBtnRegister.setOnClickListener(MainFragment.this);
         mBtnStart.setOnClickListener(MainFragment.this);

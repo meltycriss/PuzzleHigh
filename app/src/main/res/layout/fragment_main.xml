@@ -52,6 +52,7 @@
         android:layout_gravity="center"
         android:background="@drawable/main_btn"
         android:text="开始"
+        android:textColor="@color/puzzle_purple"
         android:textSize="50sp" />
 
     <Button
@@ -62,6 +63,7 @@
         android:layout_marginTop="420dp"
         android:background="@drawable/main_btn"
         android:translationZ="1px"
+        android:textColor="@color/puzzle_purple"
         android:text="登录" />
 
     <Button
@@ -70,6 +72,7 @@
         android:layout_height="@dimen/main_other_size"
         android:layout_marginTop="420dp"
         android:layout_marginLeft="50dp"
+        android:textColor="@color/puzzle_purple"
         android:background="@drawable/main_btn"
         android:text="注销" />
 
@@ -80,6 +83,7 @@
         android:layout_height="@dimen/main_other_size"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="420dp"
+        android:textColor="@color/puzzle_purple"
         android:background="@drawable/main_btn"
         android:text="排行" />
 
@@ -91,6 +95,7 @@
         android:layout_marginTop="420dp"
         android:layout_gravity="end"
         android:layout_marginRight="50dp"
+        android:textColor="@color/puzzle_purple"
         android:background="@drawable/main_btn"
         android:text="关于" />
 
@@ -102,6 +107,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="420dp"
         android:background="@drawable/main_btn"
+        android:textColor="@color/puzzle_purple"
         android:text="注册"
         android:visibility="gone" />
 
@@ -113,6 +119,7 @@
         android:layout_alignRight="@+id/main_start"
         android:background="@drawable/main_btn"
         android:text="设置"
+        android:textColor="@color/puzzle_purple"
         android:visibility="gone" />
 
 
