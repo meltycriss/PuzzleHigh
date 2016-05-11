@@ -16,4 +16,9 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <string name="about">
+        游戏由至善园Studio诚意出品，团队成员包括：廖枫，廖永涛，李智明，陈庆，林键，林俊潼。\n特别鸣谢陈楚莹提供的UI支持。
+    </string>
+
+
 </resources>
