@@ -4,13 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+<!--    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/logo" />
+        android:background="@drawable/logo" />-->
+
+    <TextView
+        android:id="@+id/login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="60dp"
+        android:textSize="50sp"
+        android:textColor="@color/puzzle_purple"
+        android:text="PUZZLE HIGH"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"

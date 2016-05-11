@@ -1,7 +1,6 @@
 package com.example.zsystudio.puzzlehigh.rank;
 
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,9 +11,6 @@ import android.widget.Toast;
 
 import com.example.zsystudio.puzzlehigh.R;
 import com.example.zsystudio.puzzlehigh.data.User;
-import com.example.zsystudio.puzzlehigh.util.TypefaceUtil;
-
-import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.

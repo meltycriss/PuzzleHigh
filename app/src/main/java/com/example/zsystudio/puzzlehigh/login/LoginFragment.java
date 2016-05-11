@@ -2,6 +2,7 @@ package com.example.zsystudio.puzzlehigh.login;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
 
     private Button mBtnLogin, mBtnRegister;
 
-    private TextView mTvPrompt;
+    private TextView mTvPrompt, mTvLogo;
 
     private LoginContract.Presenter mPresenter;
 
@@ -49,6 +50,9 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
         mBtnLogin = (Button) v.findViewById(R.id.login_login);
         mBtnRegister = (Button) v.findViewById(R.id.login_register);
         mTvPrompt = (TextView) v.findViewById(R.id.login_prompt);
+        mTvLogo = (TextView) v.findViewById(R.id.login_logo);
+        Typeface tfLogo = Typeface.createFromAsset(getContext().getAssets(), "fonts/logo.ttf");//根据路径得到Typeface
+        mTvLogo.setTypeface(tfLogo);
         mBtnLogin.setOnClickListener(LoginFragment.this);
         mBtnRegister.setOnClickListener(LoginFragment.this);
         return v;
