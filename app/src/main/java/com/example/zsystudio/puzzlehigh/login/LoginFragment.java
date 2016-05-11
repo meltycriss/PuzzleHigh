@@ -74,6 +74,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_login: {
+                mTvPrompt.setText("");
                 mPresenter.login(getContext(), mEtUserName.getText().toString(), mEtPassword.getText().toString());
                 break;
             }
